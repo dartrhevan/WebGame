@@ -1,0 +1,29 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#canvas {
+  width: 100%;
+  height: 100%;
+  background-color: #000044;
+}
+/*
+header {
+  height: 15px;
+  position: absolute;
+  background-color: red;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+header:hover {
+  position: static;
+  height: 75px;
+  background-color: purple;
+}*/

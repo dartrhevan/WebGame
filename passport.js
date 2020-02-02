@@ -5,7 +5,9 @@ const User = require('./db');
 //const db = require('mongoose');
 
 passport.use('signup', new LocalStrategy((username, password, done) => {
-        User.findOne({ username: username }, (err, user) => {
+    console.log('reg1');
+
+    User.findOne({ username: username }, (err, user) => {
             console.log('reg2');
 
             if(!user)

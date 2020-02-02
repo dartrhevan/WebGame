@@ -8,15 +8,20 @@ const router = express.Router();
 });*/
 
 router.post('/login', passport.authenticate('login', {
-  successRedirect: '/',
+  successRedirect: '/u',
   failureRedirect: '/?fail',
- // failureFlash : true
+  failureFlash : true
 }));
 
 router.post('/signup', passport.authenticate('signup', {
   successRedirect: '/',
   failureRedirect: '/?fail',
- // failureFlash : true
+  failureFlash : true
 }));
+
+router.get('/u', (req, res) => {
+  console.log(req.user);
+   res.send(req.isAuthenticated());
+});
 
 module.exports = router;

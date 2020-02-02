@@ -1,8 +1,11 @@
 const createError = require('http-errors');
 const express = require('express');
+const session = require("express-session");
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const flash = require('connect-flash'),
+bodyParser = require('body-parser');
 /**const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;*/
 const indexRouter = require('./routes/index');
@@ -20,21 +23,27 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./db');
 //const db = require('mongoose');
-
+//console.log(User.find());
+//console.log(mongoose.col1.find());
 passport.use('signup', new LocalStrategy((username, password, done) => {
         console.log('reg1');
         User.findOne({ username: username }, (err, user) => {
             console.log('reg2');
-
+            const u = new User();
+            u.username = username;
+            u.password = password;
             if(!user)
-                User.insertOne({username: username, password: password});
+                u.save(e => {console.log(e)});
+                //User.insert({username: username, password: password});
             return done(null, user);
         });
     }
 ));
 
 passport.use('login', new LocalStrategy((username, password, done) => {
+    console.log('login');
         User.findOne({ username: username, password: password }, (err, user) => {
+            console.log(user);
             return done(null, user);
         });
     }
@@ -54,11 +63,20 @@ passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 */
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('anything'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(session({ secret: 'anything' }));
+
 
 app.use('/', indexRouter);
 

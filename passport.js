@@ -1,29 +1,45 @@
 
-const passport = require('passport');
+//const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./db');
-//const db = require('mongoose');
+const bCrypt = require("bcryptjs");
 
-passport.use('signup', new LocalStrategy((username, password, done) => {
-    console.log('reg1');
+function isValidPassword(expected, actual) {
+    const r = bCrypt.compareSync(expected, actual);
+    console.log(r);
+    return r;
+}
 
-    User.findOne({ username: username }, (err, user) => {
+
+const signup = new LocalStrategy((username, password, done) => {
+        console.log('reg1');
+        User.findOne({ username: username }, (err, user) => {
             console.log('reg2');
-
+            const u = new User();
+            u.username = username;
+            const h = bCrypt.hashSync(password);
+            console.log(h);
+            u.password = h;
             if(!user)
-              User.insertOne({username: username, password: password});
-          return done(null, user);
-        });
-    }
-));
-
-passport.use('login', new LocalStrategy((username, password, done) => {
-        User.findOne({ username: username, password: password }, (err, user) => {
+                u.save(e => {console.log(e)});
+            else return done(null, false, err);
+            //User.insert({username: username, password: password});
             return done(null, user);
         });
     }
-));
+);
 
-passport.serializeUser((user, done) => done(null, user._id));
+const login = new LocalStrategy((username, password, done) => {
+        console.log('login');
+        User.findOne({ username: username }, (err, user) => {
+            console.log(user);
+            if(!user)
+                return done(null, false, err);
+            else if(!isValidPassword(password, user.password))
+                return done(null, false, 'Wrong password!');
+            return done(null, user);
+        });
+    }
+);
 
-passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
+module.exports = { signup, login };

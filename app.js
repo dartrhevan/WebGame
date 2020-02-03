@@ -4,60 +4,25 @@ const session = require("express-session");
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const flash = require('connect-flash'),
+//const flash = require('connect-flash'),
 bodyParser = require('body-parser');
-/**const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;*/
 const indexRouter = require('./routes/index');
-//const User = require('./db');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const User = require('./db');
+const {signup, login} = require('./passport');
 const app = express();
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/testDB');
-/** /
- *
- */
 
+passport.use('signup', signup);
 
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const User = require('./db');
-//const db = require('mongoose');
-//console.log(User.find());
-//console.log(mongoose.col1.find());
-passport.use('signup', new LocalStrategy((username, password, done) => {
-        console.log('reg1');
-        User.findOne({ username: username }, (err, user) => {
-            console.log('reg2');
-            const u = new User();
-            u.username = username;
-            u.password = password;
-            if(!user)
-                u.save(e => {console.log(e)});
-                //User.insert({username: username, password: password});
-            return done(null, user);
-        });
-    }
-));
-
-passport.use('login', new LocalStrategy((username, password, done) => {
-    console.log('login');
-        User.findOne({ username: username, password: password }, (err, user) => {
-            console.log(user);
-            return done(null, user);
-        });
-    }
-));
+passport.use('login', login);
 
 passport.serializeUser((user, done) => done(null, user._id));
 
 passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
-
-
-/**
- *
- *
- */
 
 /**
 app.set('views', path.join(__dirname, 'views'));

@@ -6,4 +6,10 @@ const User  = mongoose.model('User', new Schema({
     password: String
 }));
 
-module.exports = User;
+const Record = mongoose.model('Record', new Schema({
+    userId: Schema.Types.ObjectId,
+    scores: Number,
+    date: Date
+}));
+
+module.exports = { User, Record };

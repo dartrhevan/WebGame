@@ -1,7 +1,7 @@
 
 //const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('./db');
+const { User }= require('./db');
 const bCrypt = require("bcryptjs");
 
 function isValidPassword(expected, actual) {
@@ -9,7 +9,6 @@ function isValidPassword(expected, actual) {
     console.log(r);
     return r;
 }
-
 
 const signup = new LocalStrategy((username, password, done) => {
         console.log('reg1');

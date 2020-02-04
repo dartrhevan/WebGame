@@ -15,6 +15,8 @@ export default class Rocket extends IDrawable {
     turningRight = false;
     turningLeft = false;
     moving = false;
+    width = 30;
+    height = 90;
     draw(ctx = this.game.ctx) {
         //left engine
         ctx.save();
@@ -23,26 +25,26 @@ export default class Rocket extends IDrawable {
         //ctx.tr
         ctx.beginPath();
         ctx.fillStyle = '#FF1111';
-        ctx.moveTo(0, 180);
-        ctx.lineTo( 15,  150);
-        ctx.lineTo( 15,  50);
-        ctx.lineTo( 0,  80);
+        ctx.moveTo(0, this.height);
+        ctx.lineTo( this.width / 4,  this.height - this.width / 2);
+        ctx.lineTo( this.width / 4,  (this.height - this.width / 2) / 3);
+        ctx.lineTo( 0,  this.height - 2 * (this.height - this.width / 2) / 3);
         ctx.fill();
         //right engine
         ctx.beginPath();
-        ctx.moveTo( 80,  180);
-        ctx.lineTo( 65,  150);
-        ctx.lineTo( 65,  50);
-        ctx.lineTo( 80,  80);
+        ctx.moveTo( this.width,  this.height);
+        ctx.lineTo( this.width * 0.75,  this.height - this.width / 2);
+        ctx.lineTo( this.width * 0.75,  (this.height - this.width / 2) / 3);
+        ctx.lineTo( this.width,  this.height - 2 * (this.height - this.width / 2) / 3);//80
         ctx.fill();
         //body
         ctx.beginPath();
         ctx.fillStyle = '#050505';
-        ctx.moveTo( 40,  0);
-        ctx.lineTo( 65, 25);
-        ctx.lineTo( 65, 150);
-        ctx.lineTo(15,  150);
-        ctx.lineTo( 15, 25);
+        ctx.moveTo( this.width / 2,  0);
+        ctx.lineTo( this.width * 0.75, (this.height - this.width / 2) / 6);
+        ctx.lineTo( this.width * 0.75, this.height - this.width / 2);
+        ctx.lineTo(this.width / 4,  this.height - this.width / 2);
+        ctx.lineTo( this.width / 4, (this.height - this.width / 2) / 6);
         ctx.fill();
         ctx.restore();
     }
@@ -54,16 +56,16 @@ export default class Rocket extends IDrawable {
 
     rotate() {
         if(this.turningLeft)
-            this.turn(-0.02);
+            this.turn(-0.04);
         else if(this.turningRight)
-            this.turn(0.02);
+            this.turn(0.04);
     }
 
     act(iDrawable = undefined) {
         if(this.velocity >= 0.01)
             this.rotate();
         this.move();
-        if(this.moving)
+        if(this.moving || this.turningRight || this.turningLeft)
             this.velocity += 0.2;
         else if(this.velocity > 0)
             this.velocity -= 0.2;

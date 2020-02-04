@@ -9,46 +9,57 @@ export default class Rocket extends IDrawable {
         this.game = game;
     }
     x = 0;
-    y = 0;
+    y = 600;
     velocity = 0;
     angle = 0;
+    turningRight = false;
+    turningLeft = false;
     draw(ctx = this.game.ctx) {
         //left engine
         ctx.save();
+        ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
         //ctx.tr
         ctx.beginPath();
         ctx.fillStyle = '#FF1111';
-        ctx.moveTo(this.x + 0, this.y + 180);
-        ctx.lineTo(this.x + 15, this.y + 150);
-        ctx.lineTo(this.x + 15, this.y + 50);
-        ctx.lineTo(this.x + 0, this.y + 80);
+        ctx.moveTo(0, 180);
+        ctx.lineTo( 15,  150);
+        ctx.lineTo( 15,  50);
+        ctx.lineTo( 0,  80);
         ctx.fill();
         //right engine
         ctx.beginPath();
-        ctx.moveTo(this.x + 80, this.y + 180);
-        ctx.lineTo(this.x + 65, this.y + 150);
-        ctx.lineTo(this.x + 65, this.y + 50);
-        ctx.lineTo(this.x + 80, this.y + 80);
+        ctx.moveTo( 80,  180);
+        ctx.lineTo( 65,  150);
+        ctx.lineTo( 65,  50);
+        ctx.lineTo( 80,  80);
         ctx.fill();
         //body
         ctx.beginPath();
         ctx.fillStyle = '#050505';
-        ctx.moveTo(this.x + 40, this.y + 0);
-        ctx.lineTo(this.x + 65, this.y + 25);
-        ctx.lineTo(this.x + 65, this.y + 150);
-        ctx.lineTo(this.x + 15, this.y + 150);
-        ctx.lineTo(this.x + 15, this.y + 25);
+        ctx.moveTo( 40,  0);
+        ctx.lineTo( 65, 25);
+        ctx.lineTo( 65, 150);
+        ctx.lineTo(15,  150);
+        ctx.lineTo( 15, 25);
         ctx.fill();
         ctx.restore();
     }
 
     move() {
-        this.x += this.velocity * Math.cos(this.angle);
-        this.y += this.velocity * Math.sin(this.angle);
+        this.x += this.velocity * Math.sin(this.angle);
+        this.y -= this.velocity * Math.cos(this.angle);
+    }
+
+    rotate() {
+        if(this.turningLeft)
+            this.turn(-0.02);
+        else if(this.turningRight)
+            this.turn(0.02);
     }
 
     act(iDrawable = undefined) {
+        this.rotate();
         this.move();
     }
 

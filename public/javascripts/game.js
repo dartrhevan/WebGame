@@ -24,21 +24,42 @@ function setInt(func, period, timeout) {
 class Game {
     constructor(ctx) {
         this.ctx = ctx;
-        const period = 500;
+        const period = 50;
         this.rocket = new Rocket(this);
         this.asteroids = [];
         this.timer = {};
-        setInterval(this.draw.bind(this), period);
-        window.onkeypress = ev => {
+        setInterval(this.act.bind(this), period);
+        window.onkeydown = ev => {
             switch (ev.key) {
                 case 'a':
-                    this.rocket.turn(-0.5);
+                    this.rocket.turningLeft = true;
                     break;
                 case 'd':
-                    this.rocket.turn(0.5);
+                    this.rocket.turningRight = true;
+                    break;
+                case 'w':
+                    this.rocket.velocity = 10;
+                    break;
+            }
+        };
+        window.onkeyup = ev => {
+            switch (ev.key) {
+                case 'a':
+                    this.rocket.turningLeft = false;
+                    break;
+                case 'd':
+                    this.rocket.turningRight = false;
+                    break;
+                case 'w':
+                    this.rocket.velocity = 0;
                     break;
             }
         }
+    }
+
+    act() {
+        this.rocket.act();
+        this.draw();
     }
 
     draw() {

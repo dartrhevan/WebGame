@@ -14,6 +14,7 @@ export default class Rocket extends IDrawable {
     angle = 0;
     turningRight = false;
     turningLeft = false;
+    moving = false;
     draw(ctx = this.game.ctx) {
         //left engine
         ctx.save();
@@ -59,8 +60,13 @@ export default class Rocket extends IDrawable {
     }
 
     act(iDrawable = undefined) {
-        this.rotate();
+        if(this.velocity >= 0.01)
+            this.rotate();
         this.move();
+        if(this.moving)
+            this.velocity += 0.2;
+        else if(this.velocity > 0)
+            this.velocity -= 0.2;
     }
 
     speedup() {

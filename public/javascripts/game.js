@@ -1,11 +1,4 @@
 
-/*
-const rocket = {
-    leftEngine: new Path2D('M0,130 L30,70 L30,0 L0,60 Z'),
-    rightEngine: new Path2D('M30,130 L0,70 L0,0 L30,60 Z'),
-    body: new Path2D('M Z')
-};
-*/
 import Rocket from "./rocket.js";
 
 $(function () {
@@ -38,7 +31,7 @@ class Game {
                     this.rocket.turningRight = true;
                     break;
                 case 'w':
-                    this.rocket.velocity = 10;
+                    this.rocket.moving = true;
                     break;
             }
         };
@@ -51,7 +44,7 @@ class Game {
                     this.rocket.turningRight = false;
                     break;
                 case 'w':
-                    this.rocket.velocity = 0;
+                    this.rocket.moving = false;
                     break;
             }
         }

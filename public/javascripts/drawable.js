@@ -3,7 +3,7 @@ export default class Drawable {
         this.game = game;
     }
     x = 0;
-    y = 600;
+    y = 400;
     velocity = 0;
     angle = 0;
     turningRight = false;
@@ -16,8 +16,7 @@ export default class Drawable {
         return this.game.ctx;
     }
 
-    draw() {
-    }
+    draw() { }
 
     move() {
         //const directionSign = this.goBack ? -1 : 1;
@@ -42,7 +41,7 @@ export default class Drawable {
         this.move();
         if((this.moving || this.turningRight || this.turningLeft) && this.velocity < 12 && !this.goBack)
             this.velocity += 0.5;
-        else if(this.velocity > -12 )
+        else if(this.velocity > -12)
             if(this.goBack || this.turningRight || this.turningLeft)
                 this.velocity -= 0.5;
             else if(this.velocity > 0)

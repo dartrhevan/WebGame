@@ -7,8 +7,16 @@ export default class Asteroid extends Drawable {
         this.y = y;
         //this.ctx = ctx;
         this.radius = radius;
+        this.velocity = -10;
     }
-    
+
+    act(iDrawable = undefined) {
+        super.act(iDrawable);
+        const ind =this.game.asteroids.indexOf(this);
+        if(this.y > this.game.height - this.radius * 2)
+             this.game.asteroids.splice(ind/*this.game.asteroids.indexOf(this)*/, 1);
+    }
+
     draw() {
         this.ctx.beginPath();
         this.ctx.fillStyle = '#000000';

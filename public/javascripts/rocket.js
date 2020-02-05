@@ -6,6 +6,10 @@ export default class Rocket extends Drawable {
         this.width = 22.5;
         this.height = 67.5;
     }
+
+    lives = 5;
+    bullets = 5;
+
     drawLeftEngine() {
         this.ctx.beginPath();
         this.ctx.fillStyle = '#FF1111';

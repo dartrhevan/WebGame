@@ -1,10 +1,11 @@
 
 import Rocket from "./rocket.js";
+import Asteroid from "./asteroid.js";
 
 $(function () {
     //const canvas = document.getElementById('canvas');//$('#canvas');
     const ctx = canvas.getContext('2d');
-    const g = new Game(ctx);
+    const g = new Game(ctx, canvas.width, canvas.height);
 });
 
 function setInt(func, period, timeout) {
@@ -15,15 +16,17 @@ function setInt(func, period, timeout) {
 }
 
 class Game {
-    constructor(ctx) {
+    constructor(ctx, w, h) {
         this.ctx = ctx;
         const period = 50;
         this.rocket = new Rocket(this);
-        this.asteroids = [];
-        this.timer = {};
+        this.asteroids = [new Asteroid(50, 70, 30, this)];
+        //this.timer = {};
+        this.width = w;
+        this.height = h;
         setInterval(this.act.bind(this), period);
         window.onkeydown = ev => {
-            switch (ev.key) {
+            switch (ev.key.toLowerCase()) {
                 case 'a':
                     this.rocket.turningLeft = true;
                     break;
@@ -33,10 +36,13 @@ class Game {
                 case 'w':
                     this.rocket.moving = true;
                     break;
+                case 's':
+                    this.rocket.goBack = true;
+                    break;
             }
         };
         window.onkeyup = ev => {
-            switch (ev.key) {
+            switch (ev.key.toLowerCase()) {
                 case 'a':
                     this.rocket.turningLeft = false;
                     break;
@@ -46,6 +52,9 @@ class Game {
                 case 'w':
                     this.rocket.moving = false;
                     break;
+                case 's':
+                    this.rocket.goBack = false;
+                    break;
             }
         }
     }
@@ -53,6 +62,7 @@ class Game {
     act() {
         this.rocket.act();
         this.draw();
+        this.asteroids.forEach(a => a.draw());
     }
 
     draw() {

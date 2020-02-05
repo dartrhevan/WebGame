@@ -1,84 +1,63 @@
+import Drawable from "./drawable.js";
 
-class IDrawable {
-    draw(ctx) {}
-}
-
-export default class Rocket extends IDrawable {
+export default class Rocket extends Drawable {
     constructor(game) {
-        super();
-        this.game = game;
+        super(game);
+        this.width = 22.5;
+        this.height = 67.5;
     }
-    x = 0;
-    y = 600;
-    velocity = 0;
-    angle = 0;
-    turningRight = false;
-    turningLeft = false;
-    moving = false;
-    width = 30;
-    height = 90;
-    draw(ctx = this.game.ctx) {
-        //left engine
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
+    drawLeftEngine() {
+        this.ctx.beginPath();
+        this.ctx.fillStyle = '#FF1111';
+        this.ctx.moveTo(0, this.height);
+        this.ctx.lineTo( this.width / 4,  this.height - this.width / 2);
+        this.ctx.lineTo( this.width / 4,  (this.height - this.width / 2) / 3);
+        this.ctx.lineTo( 0,  this.height - 2 * (this.height - this.width / 2) / 3);
+        this.ctx.fill();
+    }
+
+    drawRightEngine() {
+        this.ctx.beginPath();
+        this.ctx.moveTo( this.width,  this.height);
+        this.ctx.lineTo( this.width * 0.75,  this.height - this.width / 2);
+        this.ctx.lineTo( this.width * 0.75,  (this.height - this.width / 2) / 3);
+        this.ctx.lineTo( this.width,  this.height - 2 * (this.height - this.width / 2) / 3);//80
+        this.ctx.fill();
+    }
+
+    drawBody() {
+        this.ctx.beginPath();
+        this.ctx.fillStyle = '#050505';
+        this.ctx.moveTo( this.width / 2,  0);
+        this.ctx.lineTo( this.width * 0.75, (this.height - this.width / 2) / 6);
+        this.ctx.lineTo( this.width * 0.75, this.height - this.width / 2);
+        this.ctx.lineTo(this.width / 4,  this.height - this.width / 2);
+        this.ctx.lineTo( this.width / 4, (this.height - this.width / 2) / 6);
+        this.ctx.fill();
+    }
+
+    draw() {
+        this.ctx.save();
+        this.ctx.translate(this.x, this.y);
+        this.ctx.rotate(this.angle);
         //ctx.tr
-        ctx.beginPath();
-        ctx.fillStyle = '#FF1111';
-        ctx.moveTo(0, this.height);
-        ctx.lineTo( this.width / 4,  this.height - this.width / 2);
-        ctx.lineTo( this.width / 4,  (this.height - this.width / 2) / 3);
-        ctx.lineTo( 0,  this.height - 2 * (this.height - this.width / 2) / 3);
-        ctx.fill();
-        //right engine
-        ctx.beginPath();
-        ctx.moveTo( this.width,  this.height);
-        ctx.lineTo( this.width * 0.75,  this.height - this.width / 2);
-        ctx.lineTo( this.width * 0.75,  (this.height - this.width / 2) / 3);
-        ctx.lineTo( this.width,  this.height - 2 * (this.height - this.width / 2) / 3);//80
-        ctx.fill();
-        //body
-        ctx.beginPath();
-        ctx.fillStyle = '#050505';
-        ctx.moveTo( this.width / 2,  0);
-        ctx.lineTo( this.width * 0.75, (this.height - this.width / 2) / 6);
-        ctx.lineTo( this.width * 0.75, this.height - this.width / 2);
-        ctx.lineTo(this.width / 4,  this.height - this.width / 2);
-        ctx.lineTo( this.width / 4, (this.height - this.width / 2) / 6);
-        ctx.fill();
-        ctx.restore();
+        this.drawLeftEngine();
+        this.drawRightEngine();
+        this.drawBody();
+        this.ctx.restore();
     }
 
-    move() {
-        this.x += this.velocity * Math.sin(this.angle);
-        this.y -= this.velocity * Math.cos(this.angle);
-    }
-
-    rotate() {
-        if(this.turningLeft)
-            this.turn(-0.04);
-        else if(this.turningRight)
-            this.turn(0.04);
-    }
-
-    act(iDrawable = undefined) {
-        if(this.velocity >= 0.01)
-            this.rotate();
-        this.move();
-        if(this.moving || this.turningRight || this.turningLeft)
-            this.velocity += 0.2;
-        else if(this.velocity > 0)
-            this.velocity -= 0.2;
-    }
-
+/*
     speedup() {
         this.velocity += 10;
-    }
+    }*/
 
-    turn(a) {
-        this.angle += a;
+/*
+    goBack() {
+        if(this.velocity > -20)
+            this.velocity -= 0.2;
     }
-
+*/
     shoot() {
 
     }

@@ -10,11 +10,19 @@ export default class Asteroid extends Drawable {
         this.velocity = -10;
     }
 
-    act(iDrawable = undefined) {
-        super.act(iDrawable);
-        const ind =this.game.asteroids.indexOf(this);
+    act() {
+        //super.act();
+        super.move();
         if(this.y > this.game.height - this.radius * 2)
-             this.game.asteroids.splice(ind/*this.game.asteroids.indexOf(this)*/, 1);
+            this.disappear();
+    }
+
+    get width() {
+        return this.radius;
+    }
+
+    get height() {
+        return this.radius;
     }
 
     draw() {
@@ -22,5 +30,9 @@ export default class Asteroid extends Drawable {
         this.ctx.fillStyle = '#000000';
         this.ctx.arc(this.x, this.y, this.radius, 0, 360);
         this.ctx.fill();
+    }
+
+    disappear() {
+        this.game.asteroids.splice(this.game.asteroids.indexOf(this), 1);
     }
 }

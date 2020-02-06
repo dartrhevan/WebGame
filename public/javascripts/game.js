@@ -65,6 +65,8 @@ class Game {
         this.asteroids.forEach(a => {
             a.act();
             a.draw();
+            if(this.rocket.checkIntersection(a)/*this.rocket.getDistanceTo(a) < 1 * a.width*/)
+                this.rocket.interact(a);
         });
         this.generateAsteroids();
     }

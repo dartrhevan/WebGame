@@ -6,14 +6,22 @@ export default class Drawable {
     y = 400;
     velocity = 0;
     angle = 0;
-    turningRight = false;
-    turningLeft = false;
-    goBack = false;
-    moving = false;
     width = 30;
     height = 90;
     get ctx() {
         return this.game.ctx;
+    }
+
+    get center() {
+        return {
+            cx: this.x + this.width / 2,
+            cy: this.y + this.height / 2
+        };
+    }
+
+    getDistanceTo(drawable) {
+        return Math.sqrt((this.center.cx - drawable.center.cx) * (this.center.cx - drawable.center.cx)
+            + (this.center.cy - drawable.center.cy) * (this.center.cy - drawable.center.cy));
     }
 
     draw() { }
@@ -28,32 +36,14 @@ export default class Drawable {
             this.y -= yShift;
     }
 
-    rotate() {
-        if(this.turningLeft)
-            this.turn(-0.04);
-        else if(this.turningRight)
-            this.turn(0.04);
-    }
+    //interact(drawable) {  }
 
-    act(iDrawable = undefined) {
-        if(Math.abs(this.velocity) >= 0.01)
-            this.rotate();
-        this.move();
-        if((this.moving || this.turningRight || this.turningLeft) && this.velocity < 12 && !this.goBack)
-            this.velocity += 0.5;
-        else if(this.velocity > -12)
-            if(this.goBack || this.turningRight || this.turningLeft)
-                this.velocity -= 0.5;
-            else if(this.velocity > 0)
-                this.velocity -= 0.25;
+    act() {
     }
     /*
         speedup() {
             this.velocity += 10;
         }*/
 
-    turn(a) {
-        this.angle += a;
-    }
 
 }

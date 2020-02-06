@@ -1,10 +1,39 @@
 import Drawable from "./drawable.js";
+import Asteroid from "./asteroid.js";
 
 export default class Rocket extends Drawable {
     constructor(game) {
         super(game);
         this.width = 22.5;
         this.height = 67.5;
+    }
+
+    turningRight = false;
+    turningLeft = false;
+    goBack = false;
+    moving = false;
+    rotate() {
+        if(this.turningLeft)
+            this.turn(-0.06);
+        else if(this.turningRight)
+            this.turn(0.06);
+    }
+
+    turn(a) {
+        this.angle += a;
+    }
+
+    act() {
+        if(Math.abs(this.velocity) >= 0.01)
+            this.rotate();
+        this.move();
+        if((this.moving || this.turningRight || this.turningLeft) && this.velocity < 12 && !this.goBack)
+            this.velocity += 0.5;
+        else if(this.velocity > -12)
+            if(this.goBack || this.turningRight || this.turningLeft)
+                this.velocity -= 0.5;
+            else if(this.velocity > 0)
+                this.velocity -= 0.25;
     }
 
     lives = 5;
@@ -29,6 +58,39 @@ export default class Rocket extends Drawable {
         this.ctx.fill();
     }
 
+    checkIntersection(drawable) {
+        const x = this.x * Math.cos(this.angle) - this.y * Math.sin(this.angle);
+        const y = this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
+        const dx = drawable.x * Math.cos(this.angle) - drawable.y * Math.sin(this.angle);
+        const dy = drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);
+        const cx = x - this.width / 2;
+        const cy = y - this.height / 2;
+        if(drawable instanceof Asteroid)
+            return Math.abs(cx - dx ) <= drawable.radius + this.width / 2 &&
+                Math.abs(cy - dy ) <= drawable.radius + this.height / 2;
+            /*
+            return (x < cx ? (cy < y ? x + this.width >= x - drawable.radius && cy + drawable.radius >= y :
+                x + this.width >= x - drawable.radius && cy + drawable.radius <= y + this.height) :
+                (y > cy ? x <= cx + drawable.radius && cy + drawable.radius >= y :
+                    cy + drawable.radius <= y + this.height &&  x <= cx + drawable.radius));*/
+    }
+/*
+    isAbove(x,y, cx, cy, r) {
+        return
+    }
+
+    isBellow(x,y, cx, cy, r) {
+
+    }
+
+    isLefter(x,y, cx, cy, r) {
+
+    }
+
+    isRighter(x,y, cx, cy, r) {
+
+    }
+    */
     drawBody() {
         this.ctx.beginPath();
         this.ctx.fillStyle = '#050505';
@@ -51,10 +113,20 @@ export default class Rocket extends Drawable {
         this.ctx.restore();
     }
 
-/*
-    speedup() {
-        this.velocity += 10;
-    }*/
+    interact(drawable) {
+        if(drawable instanceof Asteroid)
+        {
+            this.lives--;
+            drawable.disappear();
+            //alert(this.lives);
+            l.innerHTML = this.lives;
+        }
+    }
+
+    /*
+        speedup() {
+            this.velocity += 10;
+        }*/
 
 /*
     goBack() {

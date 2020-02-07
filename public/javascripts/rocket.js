@@ -1,5 +1,6 @@
 import Drawable from "./drawable.js";
 import Asteroid from "./asteroid.js";
+import Bullet from "./bullet.js";
 
 export default class Rocket extends Drawable {
     constructor(game) {
@@ -63,7 +64,7 @@ export default class Rocket extends Drawable {
         const y = this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
         const dx = drawable.x * Math.cos(this.angle) - drawable.y * Math.sin(this.angle);
         const dy = drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);
-        const cx = x - this.width / 2;
+        const cx = x + this.width / 2;
         const cy = y - this.height / 2;
         if(drawable instanceof Asteroid)
             return Math.abs(cx - dx ) <= drawable.radius + this.width / 2 &&
@@ -135,6 +136,6 @@ export default class Rocket extends Drawable {
     }
 */
     shoot() {
-
+        this.game.drawables.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, 15, this.angle))
     }
 }

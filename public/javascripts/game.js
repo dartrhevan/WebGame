@@ -1,26 +1,12 @@
+import Rocket from "./rocket";
+import Asteroid from "./asteroid";
 
-import Rocket from "./rocket.js";
-import Asteroid from "./asteroid.js";
-
-$(function () {
-    //const canvas = document.getElementById('canvas');//$('#canvas');
-    const ctx = canvas.getContext('2d');
-    const g = new Game(ctx, canvas.width, canvas.height);
-});
-
-function setInt(func, period, timeout) {
-    timeout.id = setTimeout(() => {
-        func();
-        timeout.id = setTimeout(func, period);
-    }, period);
-}
-
-class Game {
+export default class Game {
     constructor(ctx, w, h) {
         this.ctx = ctx;
         const period = 50;
         this.rocket = new Rocket(this);
-        this.asteroids = [new Asteroid(50, 70, 15, this)];
+        this.drawables = [/*new Asteroid(50, 70, 15, this, 0), new Asteroid(20, 70, 15, this, 0), new Asteroid(50, 170, 15, this, 0)*/];
         //this.timer = {};
         this.width = w;
         this.height = h;
@@ -56,13 +42,14 @@ class Game {
                     this.rocket.goBack = false;
                     break;
             }
-        }
+        };
+        window.onkeypress = e => e.key.toLowerCase() === 'k' ? this.rocket.shoot() : null;
     }
 
     act() {
         this.rocket.act();
         this.draw();
-        this.asteroids.forEach(a => {
+        this.drawables.forEach(a => {
             a.act();
             a.draw();
             if(this.rocket.checkIntersection(a)/*this.rocket.getDistanceTo(a) < 1 * a.width*/)
@@ -79,17 +66,15 @@ class Game {
     generateAsteroids() {
         //const size = Math.random() % 2;
         //for(let i = 0; i < size; ++i)
-        if( rand() % 17 === 0)
-            this.asteroids.push(new Asteroid(rand(this.width), 0, 15, this))
+        if( rand() % 7 === 0)
+            this.drawables.push(new Asteroid(rand(this.width), 0, 15, this))
     }
-/*
-    removeAsteroids() {
+    /*
+        removeAsteroids() {
 
-    }*/
+        }*/
 }
 
 function rand(max = 100, min = 0) {
     return min + Math.round(Math.random() * (max - min));
 }
-
-

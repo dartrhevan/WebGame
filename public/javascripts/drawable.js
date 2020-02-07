@@ -11,7 +11,7 @@ export default class Drawable {
     get ctx() {
         return this.game.ctx;
     }
-
+/*
     get center() {
         return {
             cx: this.x + this.width / 2,
@@ -23,20 +23,27 @@ export default class Drawable {
         return Math.sqrt((this.center.cx - drawable.center.cx) * (this.center.cx - drawable.center.cx)
             + (this.center.cy - drawable.center.cy) * (this.center.cy - drawable.center.cy));
     }
-
+*/
     draw() { }
 
     move() {
         //const directionSign = this.goBack ? -1 : 1;
         const xShift = this.velocity * Math.sin(this.angle);
         const yShift = this.velocity * Math.cos(this.angle);
-        if(this.x + xShift> 0 && this.x + xShift  < this.game.width)
+        if(this.shouldMoveX(xShift)/*this.x + xShift> 0 && this.x + xShift  < this.game.width*/)
             this.x += xShift;
-        if(this.y - yShift > 0 && this.y - yShift < this.game.height)
+        if(this.shouldMoveY(yShift)/*this.y - yShift > 0 && this.y - yShift < this.game.height*/)
             this.y -= yShift;
     }
 
+    shouldMoveX(xShift) {
+        return this.x + xShift> 0 && this.x + xShift  < this.game.width;
+    }
     //interact(drawable) {  }
+
+    shouldMoveY(yShift) {
+        return this.y - yShift > 0 && this.y - yShift < this.game.height;
+    }
 
     act() {
     }

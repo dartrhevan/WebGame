@@ -77,7 +77,7 @@ export default class Game {
         //const size = Math.random() % 2;
         //for(let i = 0; i < size; ++i)
         if( rand() % 7 === 0)
-            this.drawables.push(new Asteroid(rand(this.width), 0, 15, this))
+            this.drawables.push(new Asteroid(rand(this.width), 0, 15, this, rand(0, 1)))
     }
     /*
         removeAsteroids() {

@@ -2,15 +2,16 @@ import Drawable from "./drawable.js";
 //const Drawable = require("./drawable.js")
 
 export default class Asteroid extends Drawable {
-    constructor(x,y,radius,game, v = -10, a = 0) {
+    constructor(x,y,radius,game, d,v = -10, a = 0) {
         super(game);
+        this.disposable = d;
         this.x = x;
         this.y = y;
         //this.ctx = ctx;
         this.radius = radius;
         this.velocity = v;
         this.angle = a;
-        this.fillStyle = '#000000';
+        this.fillStyle = d ? '#442211' : '#000000';
     }
 
     act() {
@@ -19,6 +20,8 @@ export default class Asteroid extends Drawable {
         if(this.checkDisappearing())
             this.disappear();
     }
+
+
 
     checkDisappearing() {
         return this.y > this.game.height - this.radius * 2;
@@ -42,6 +45,7 @@ export default class Asteroid extends Drawable {
     shouldMoveY(yShift) {
         return true;
     }
+
 
     draw() {
         this.ctx.beginPath();

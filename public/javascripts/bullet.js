@@ -21,7 +21,8 @@ export default class Bullet extends Asteroid
     interact(drawable)
     {
         if(drawable instanceof Asteroid) {
-            drawable.disappear();
+            if(drawable.disposable)
+                drawable.disappear();
             this.disappear();
         }
     }

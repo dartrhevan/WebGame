@@ -136,6 +136,6 @@ export default class Rocket extends Drawable {
     }
 */
     shoot() {
-        this.game.bullets.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, 15, this.angle))
+        this.game.bullets.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, false, 17, this.angle))
     }
 }

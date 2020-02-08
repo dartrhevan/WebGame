@@ -1,5 +1,7 @@
 import Rocket from "./rocket.js";
 import Asteroid from "./asteroid.js";
+import Ball from "./ball.js";
+import {LifeBonus, ScoreBonus} from "./bonus.js";
 
 export default class Game {
     constructor(ctx, w, h) {
@@ -77,14 +79,23 @@ export default class Game {
         //const size = Math.random() % 2;
         //for(let i = 0; i < size; ++i)
         if( rand() % 7 === 0)
-            this.drawables.push(new Asteroid(rand(this.width), 0, 15, this, rand(0, 1)))
+            this.drawables.push(getBall(rand(this.width), 0, 15, this))
     }
     /*
         removeAsteroids() {
 
         }*/
 }
-
+/** TODO: Move to own file*/
 function rand(max = 100, min = 0) {
     return min + Math.round(Math.random() * (max - min));
+}
+
+function getBall(x,y,radius,game) {
+    const r = rand();
+    if(r <= 70)
+        return new Asteroid(x,y,radius,game, rand(0, 1));
+    else if(r <= 90)
+        return new ScoreBonus(x,y,radius,game);
+    else return new LifeBonus(x,y,radius,game)
 }

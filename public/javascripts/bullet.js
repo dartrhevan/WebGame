@@ -1,10 +1,12 @@
 import Asteroid from "./asteroid.js";
+import Ball from "./ball.js";
 
-export default class Bullet extends Asteroid
+export default class Bullet extends Ball
 {
     checkDisappearing() {
         return this.x < 0 || this.x > this.game.width || this.y <  0 || this.y > this.game.height;
     }
+
     constructor(...args) {
         super(...args);
     }

@@ -1,6 +1,8 @@
 import Drawable from "./drawable.js";
 import Asteroid from "./asteroid.js";
 import Bullet from "./bullet.js";
+import {LifeBonus, ScoreBonus, Bonus} from "./bonus.js";
+import Ball from "./ball.js";
 
 export default class Rocket extends Drawable {
     constructor(game) {
@@ -66,7 +68,7 @@ export default class Rocket extends Drawable {
         const dy = -drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);
         const cx = x + this.width / 2;
         const cy = y + this.height / 2;
-        if(drawable instanceof Asteroid)
+        if(drawable instanceof Ball)
             return Math.abs(cx - dx ) <= drawable.radius + this.width / 2 &&
                 Math.abs(cy - dy ) <= drawable.radius + this.height / 2;
             /*
@@ -122,6 +124,8 @@ export default class Rocket extends Drawable {
             //alert(this.lives);
             l.innerHTML = this.lives;
         }
+        else if(drawable instanceof Bonus)
+            drawable.interact(this);
     }
 
     /*
@@ -136,6 +140,6 @@ export default class Rocket extends Drawable {
     }
 */
     shoot() {
-        this.game.bullets.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, false, 17, this.angle))
+        this.game.bullets.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, 17, this.angle))
     }
 }

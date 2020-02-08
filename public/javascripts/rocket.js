@@ -60,12 +60,12 @@ export default class Rocket extends Drawable {
     }
 
     checkIntersection(drawable) {
-        const x = this.x * Math.cos(this.angle) - this.y * Math.sin(this.angle);
-        const y = this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
-        const dx = drawable.x * Math.cos(this.angle) - drawable.y * Math.sin(this.angle);
-        const dy = drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);
+        const x = this.x * Math.cos(this.angle) + this.y * Math.sin(this.angle);
+        const y = -this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
+        const dx = drawable.x * Math.cos(this.angle) + drawable.y * Math.sin(this.angle);
+        const dy = -drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);
         const cx = x + this.width / 2;
-        const cy = y - this.height / 2;
+        const cy = y + this.height / 2;
         if(drawable instanceof Asteroid)
             return Math.abs(cx - dx ) <= drawable.radius + this.width / 2 &&
                 Math.abs(cy - dy ) <= drawable.radius + this.height / 2;

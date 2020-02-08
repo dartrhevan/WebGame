@@ -1,5 +1,5 @@
-import Rocket from "./rocket";
-import Asteroid from "./asteroid";
+import Rocket from "./rocket.js";
+import Asteroid from "./asteroid.js";
 
 export default class Game {
     constructor(ctx, w, h) {

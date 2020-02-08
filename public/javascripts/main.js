@@ -2,7 +2,7 @@
 import Rocket from "./rocket.js";
 import Asteroid from "./asteroid.js";
 import Game from './game.js'
-import $ from 'jquery';
+//import $ from 'jquery';
 
 $(function () {
     //const canvas = document.getElementById('canvas');//$('#canvas');

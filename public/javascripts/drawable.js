@@ -44,8 +44,9 @@ export default class Drawable {
     shouldMoveY(yShift) {
         return this.y - yShift > 0 && this.y - yShift < this.game.height;
     }
-
-    act() {
+    checkIntersection(drawable) {
+    }
+        act() {
     }
     /*
         speedup() {

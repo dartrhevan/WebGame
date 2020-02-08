@@ -4,9 +4,10 @@ import Asteroid from "./asteroid.js";
 export default class Game {
     constructor(ctx, w, h) {
         this.ctx = ctx;
-        const period = 50;
+        const period = 55;
         this.rocket = new Rocket(this);
-        this.drawables = [/*new Asteroid(50, 70, 15, this, 0), new Asteroid(20, 70, 15, this, 0), new Asteroid(50, 170, 15, this, 0)*/];
+        this.drawables = [];
+        this.bullets = [];
         //this.timer = {};
         this.width = w;
         this.height = h;
@@ -50,6 +51,15 @@ export default class Game {
         this.rocket.act();
         this.draw();
         this.drawables.forEach(a => {
+            a.act();
+            a.draw();
+            if(this.rocket.checkIntersection(a)/*this.rocket.getDistanceTo(a) < 1 * a.width*/)
+                this.rocket.interact(a);
+            for(let b of this.bullets)
+                if(b.checkIntersection(a))
+                    b.interact(a);
+        });
+        this.bullets.forEach(a => {
             a.act();
             a.draw();
             if(this.rocket.checkIntersection(a)/*this.rocket.getDistanceTo(a) < 1 * a.width*/)

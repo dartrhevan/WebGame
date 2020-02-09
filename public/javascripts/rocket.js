@@ -40,7 +40,8 @@ export default class Rocket extends Drawable {
     }
 
     lives = 5;
-    bullets = 5;
+    bullets = 20;
+    scores = 0;
 
     drawLeftEngine() {
         this.ctx.beginPath();
@@ -140,6 +141,7 @@ export default class Rocket extends Drawable {
     }
 */
     shoot() {
-        this.game.bullets.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, 17, this.angle))
+        this.game.bullets.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, 17, this.angle));
+        this.bullets--;
     }
 }

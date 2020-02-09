@@ -6,14 +6,11 @@ import {LifeBonus, ScoreBonus} from "./bonus.js";
 export default class Game {
     constructor(ctx, w, h) {
         this.ctx = ctx;
-        const period = 55;
-        this.rocket = new Rocket(this);
-        this.drawables = [];
-        this.bullets = [];
-        //this.timer = {};
         this.width = w;
         this.height = h;
-        setInterval(this.act.bind(this), period);
+        this.period = 55;
+        //this.timer = {};
+        //this.int = setInterval(this.act.bind(this), period);
         window.onkeydown = ev => {
             switch (ev.key.toLowerCase()) {
                 case 'a':
@@ -46,7 +43,28 @@ export default class Game {
                     break;
             }
         };
+        this.startNewGame();
+        //const startGame = () => this.restart();
+        $('#rst').click(this.startNewGame.bind(this));
+        $('#st').click(this.pause.bind(this));
         window.onkeypress = e => e.key.toLowerCase() === 'k' ? this.rocket.shoot() : null;
+        /*clearInterval(this.int);
+        this.int = setInterval(this.act.bind(this), this.period);*/
+
+    }
+
+    startNewGame() {
+        this.rocket = new Rocket(this);
+        this.drawables = [];
+        this.bullets = [];
+    }
+
+
+    pause() {
+        if(this.int)
+            this.int = clearInterval(this.int);
+        else
+            this.int = setInterval(this.act.bind(this), this.period);
     }
 
     act() {
@@ -68,6 +86,9 @@ export default class Game {
                 this.rocket.interact(a);
         });
         this.generateAsteroids();
+        $('#s').html(this.rocket.scores);
+        $('#l').html(this.rocket.lives);
+        $('#b').html(this.rocket.bullets);
     }
 
     draw() {

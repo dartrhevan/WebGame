@@ -8,7 +8,19 @@ export class Bonus extends Ball {
     interact(drawable) {
         this.disappear();
     }
+
+    draw() {
+        super.draw();
+        this.ctx.save();
+        this.ctx.font = "25px Arial";
+        this.ctx.textAlign = "center";
+        this.ctx.fillStyle = '#000000';
+        this.ctx.fillText(this.text, this.x, this.y);
+        this.ctx.restore();
+    }
+
     fillStyle = '#BEDD44';
+    text = '';
 }
 
 export class LifeBonus extends Bonus {
@@ -19,6 +31,7 @@ export class LifeBonus extends Bonus {
         super.interact(rocket);
         rocket.lives++;
     }
+    text='L';
 }
 
 export class ScoreBonus extends Bonus {
@@ -29,4 +42,6 @@ export class ScoreBonus extends Bonus {
         super.interact(rocket);
         rocket.scores += 3;
     }
+    text='3';
+
 }

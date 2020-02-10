@@ -1,47 +1,71 @@
 import Drawable from "./drawable.js";
-import Asteroid from "./asteroid.js";
-import Bullet from "./bullet.js";
-import {LifeBonus, ScoreBonus, Bonus} from "./bonus.js";
-import Ball from "./ball.js";
+import Asteroid from "./Balls/asteroid.js";
+import Bullet from "./Balls/bullet.js";
+import {LifeBonus, ScoreBonus, Bonus} from "./Balls/bonus.js";
+import Ball from "./Balls/ball.js";
 
 export default class Rocket extends Drawable {
     constructor(game) {
         super(game);
         this.width = 22.5;
+        //this.velocity = 15;
         this.height = 67.5;
+        //this.angle = Math.PI;
     }
 
     turningRight = false;
     turningLeft = false;
     goBack = false;
     moving = false;
-    rotate() {
-        if(this.turningLeft)
-            this.turn(-0.06);
-        else if(this.turningRight)
-            this.turn(0.06);
+
+
+    checkIntersection(drawable) {
+
+        const x = this.x * Math.cos(this.angle) + this.y * Math.sin(this.angle);
+        const y = -this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
+        const dx = drawable.x * Math.cos(this.angle) + drawable.y * Math.sin(this.angle);
+        const dy = -drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);
+        const cx = x + this.width / 2;
+        const cy = y + this.height / 2;
+        if(drawable instanceof Ball) {/*
+            const x = this.x * Math.cos(this.angle) + this.y * Math.sin(this.angle);
+            const y = -this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
+            const dx = drawable.x * Math.cos(this.angle) + drawable.y * Math.sin(this.angle);
+            const dy = -drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);
+            const cx = x + this.width / 2;
+            const cy = y + this.height / 2;*/
+            return Math.abs(cx - dx) <= drawable.radius + this.width / 2 &&
+                Math.abs(cy - dy) <= drawable.radius + this.height / 2;
+        }
+        else if (drawable instanceof Rocket) {/*
+            const x = this.x * Math.cos(this.angle) + this.y * Math.sin(this.angle);
+            const y = -this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
+            const cx = x + this.width / 2;
+            const cy = y + this.height / 2;
+
+            const x2 = drawable.x * Math.cos(this.angle) + drawable.y * Math.sin(this.angle);
+            const y2 = -drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);*/
+            const cx2 = dx + drawable.width / 2;
+            const cy2= dy + drawable.height / 2;
+            return Math.sqrt((cx- cx2) ** 2 + (cy - cy2) ** 2) <= this.height;
+        }
+
     }
 
-    turn(a) {
-        this.angle += a;
+    interact(drawable) {
+        if(drawable instanceof Bonus)
+            drawable.interact(this);
+        else if(drawable instanceof Ball || drawable instanceof Rocket)
+        {
+            this.lives--;
+            drawable.disappear();
+            l.innerHTML = this.lives;
+        }
     }
 
     act() {
-        if(Math.abs(this.velocity) >= 0.01)
-            this.rotate();
         this.move();
-        if((this.moving || this.turningRight || this.turningLeft) && this.velocity < 12 && !this.goBack)
-            this.velocity += 0.5;
-        else if(this.velocity > -12)
-            if(this.goBack || this.turningRight || this.turningLeft)
-                this.velocity -= 0.5;
-            else if(this.velocity > 0)
-                this.velocity -= 0.25;
     }
-
-    lives = 5;
-    bullets = 20;
-    scores = 0;
 
     drawLeftEngine() {
         this.ctx.beginPath();
@@ -62,39 +86,6 @@ export default class Rocket extends Drawable {
         this.ctx.fill();
     }
 
-    checkIntersection(drawable) {
-        const x = this.x * Math.cos(this.angle) + this.y * Math.sin(this.angle);
-        const y = -this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
-        const dx = drawable.x * Math.cos(this.angle) + drawable.y * Math.sin(this.angle);
-        const dy = -drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);
-        const cx = x + this.width / 2;
-        const cy = y + this.height / 2;
-        if(drawable instanceof Ball)
-            return Math.abs(cx - dx ) <= drawable.radius + this.width / 2 &&
-                Math.abs(cy - dy ) <= drawable.radius + this.height / 2;
-            /*
-            return (x < cx ? (cy < y ? x + this.width >= x - drawable.radius && cy + drawable.radius >= y :
-                x + this.width >= x - drawable.radius && cy + drawable.radius <= y + this.height) :
-                (y > cy ? x <= cx + drawable.radius && cy + drawable.radius >= y :
-                    cy + drawable.radius <= y + this.height &&  x <= cx + drawable.radius));*/
-    }
-/*
-    isAbove(x,y, cx, cy, r) {
-        return
-    }
-
-    isBellow(x,y, cx, cy, r) {
-
-    }
-
-    isLefter(x,y, cx, cy, r) {
-
-    }
-
-    isRighter(x,y, cx, cy, r) {
-
-    }
-    */
     drawBody() {
         this.ctx.beginPath();
         this.ctx.fillStyle = '#050505';
@@ -116,32 +107,21 @@ export default class Rocket extends Drawable {
         this.drawBody();
         this.ctx.restore();
     }
-
+/*
     interact(drawable) {
-        if(drawable instanceof Asteroid)
+        if(drawable instanceof Bonus)
+            drawable.interact(this);
+        else if(drawable instanceof Ball)
         {
             this.lives--;
             drawable.disappear();
             //alert(this.lives);
             l.innerHTML = this.lives;
         }
-        else if(drawable instanceof Bonus)
-            drawable.interact(this);
-    }
+    }*/
 
-    /*
-        speedup() {
-            this.velocity += 10;
-        }*/
-
-/*
-    goBack() {
-        if(this.velocity > -20)
-            this.velocity -= 0.2;
-    }
-*/
     shoot() {
         this.game.bullets.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, 17, this.angle));
-        this.bullets--;
+        //this.bullets--;
     }
 }

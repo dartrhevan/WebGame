@@ -1,7 +1,7 @@
 
 import Rocket from "./rocket.js";
-import Asteroid from "./asteroid.js";
-import Game from './game.js'
+import Asteroid from "./Balls/asteroid.js";
+import Game from './Rockets/game.js'
 //import $ from 'jquery';
 
 $(function () {

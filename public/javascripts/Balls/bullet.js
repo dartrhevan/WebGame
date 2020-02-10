@@ -1,5 +1,6 @@
 import Asteroid from "./asteroid.js";
 import Ball from "./ball.js";
+import Rocket from "../rocket.js";
 
 export default class Bullet extends Ball
 {
@@ -18,12 +19,14 @@ export default class Bullet extends Ball
     checkIntersection(drawable) {
         if(drawable instanceof Asteroid)
             return Math.sqrt(((this.x - drawable.x) ** 2 + (this.y - drawable.y) ** 2)) < this.radius + drawable.radius;
+        else if(drawable instanceof Rocket)
+            return drawable.checkIntersection(this);
     }
 
     interact(drawable)
     {
-        if(drawable instanceof Asteroid) {
-            if(drawable.disposable)
+        if(drawable instanceof Asteroid || drawable instanceof Rocket) {
+            if(drawable.disposable || drawable instanceof Rocket)
                 drawable.disappear();
             this.disappear();
         }

@@ -1,4 +1,4 @@
-import Drawable from "./drawable.js";
+import Drawable from "../drawable.js";
 import Ball from "./ball.js";
 //const Drawable = require("./drawable.js")
 

@@ -1,4 +1,5 @@
-import Drawable from "./drawable.js";
+import Drawable from "../drawable.js";
+import rand from "../rand.js";
 
 export default class Ball extends Drawable {
     constructor(x,y,radius,game, v = -10, a = 0) {
@@ -53,8 +54,4 @@ export default class Ball extends Drawable {
         this.game.drawables.splice(this.game.drawables.indexOf(this), 1);
     }
 
-}
-
-function rand(max = 100, min = 0) {
-    return min + Math.round(Math.random() * (max - min));
 }

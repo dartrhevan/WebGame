@@ -1,7 +1,10 @@
-import Rocket from "./rocket.js";
-import Asteroid from "./asteroid.js";
-import Ball from "./ball.js";
-import {LifeBonus, ScoreBonus} from "./bonus.js";
+import Rocket from "../rocket.js";
+import Asteroid from "../Balls/asteroid.js";
+import Ball from "../Balls/ball.js";
+import {LifeBonus, ScoreBonus} from "../Balls/bonus.js";
+import Player from "./Player.js";
+import rand from "../rand.js";
+import Enemy from "./enemy.js";
 
 export default class Game {
     constructor(ctx, w, h) {
@@ -13,15 +16,19 @@ export default class Game {
         //this.int = setInterval(this.act.bind(this), period);
         window.onkeydown = ev => {
             switch (ev.key.toLowerCase()) {
+                case 'ф':
                 case 'a':
                     this.rocket.turningLeft = true;
                     break;
+                case 'в':
                 case 'd':
                     this.rocket.turningRight = true;
                     break;
+                case 'ц':
                 case 'w':
                     this.rocket.moving = true;
                     break;
+                case 'ы':
                 case 's':
                     this.rocket.goBack = true;
                     break;
@@ -30,15 +37,19 @@ export default class Game {
         window.onkeyup = ev => {
             switch (ev.key.toLowerCase()) {
                 case 'a':
+                case 'ф':
                     this.rocket.turningLeft = false;
                     break;
+                case 'в':
                 case 'd':
                     this.rocket.turningRight = false;
                     break;
                 case 'w':
+                case 'ц':
                     this.rocket.moving = false;
                     break;
                 case 's':
+                case 'ы':
                     this.rocket.goBack = false;
                     break;
             }
@@ -47,14 +58,14 @@ export default class Game {
         //const startGame = () => this.restart();
         $('#rst').click(this.startNewGame.bind(this));
         $('#st').click(this.pause.bind(this));
-        window.onkeypress = e => e.key.toLowerCase() === 'k' ? this.rocket.shoot() : null;
+        window.onkeypress = e => e.key.toLowerCase() === 'k' ||  e.key.toLowerCase() === 'л' ? this.rocket.shoot() : null;
         /*clearInterval(this.int);
         this.int = setInterval(this.act.bind(this), this.period);*/
 
     }
 
     startNewGame() {
-        this.rocket = new Rocket(this);
+        this.rocket = new Player(this);
         this.drawables = [];
         this.bullets = [];
     }
@@ -85,7 +96,7 @@ export default class Game {
             if(this.rocket.checkIntersection(a)/*this.rocket.getDistanceTo(a) < 1 * a.width*/)
                 this.rocket.interact(a);
         });
-        this.generateAsteroids();
+        this.generateDrawable();
         $('#s').html(this.rocket.scores);
         $('#l').html(this.rocket.lives);
         $('#b').html(this.rocket.bullets);
@@ -96,26 +107,25 @@ export default class Game {
         this.rocket.draw();
     }
 
-    generateAsteroids() {
+    generateDrawable() {
         //const size = Math.random() % 2;
         //for(let i = 0; i < size; ++i)
-        if( rand() % 7 === 0)
-            this.drawables.push(getBall(rand(this.width), 0, 15, this))
+        if( rand() % 13 === 0)
+            this.drawables.push(getDrawable(rand(this.width), 0, 15, this))
     }
     /*
         removeAsteroids() {
 
         }*/
 }
-/** TODO: Move to own file*/
-function rand(max = 100, min = 0) {
-    return min + Math.round(Math.random() * (max - min));
-}
 
-function getBall(x,y,radius,game) {
+
+function getDrawable(x, y, radius, game) {
     const r = rand();
-    if(r <= 70)
+    if(r <= 50)
         return new Asteroid(x,y,radius,game, rand(0, 1));
+    else if(r <= 70)
+        return new Enemy(x, y, game);
     else if(r <= 90)
         return new ScoreBonus(x,y,radius,game);
     else return new LifeBonus(x,y,radius,game)

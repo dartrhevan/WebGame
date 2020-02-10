@@ -1,7 +1,7 @@
-const Asteroid = require("../public/javascripts/asteroid");
-const Bullet = require( "../public/javascripts/bullet");
+const Asteroid = require("../public/javascripts/Balls/asteroid");
+const Bullet = require( "../public/javascripts/Balls/bullet");
 const Rocket = require( "../public/javascripts/rocket");
-const Game = require("../public/javascripts/game");
+const Game = require("../public/javascripts/Rockets/game");
 
 
 /*

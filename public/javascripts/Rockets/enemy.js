@@ -1,0 +1,34 @@
+import Rocket from "../rocket.js";
+import rand from "../rand.js";
+
+export default class Enemy extends Rocket {
+
+    constructor(x, y, game) {
+        super(game);
+        this.velocity = 7;
+        this.x = x;
+        this.y = y;
+        this.angle = Math.PI;
+    }
+
+    act() {
+        super.act();
+        if(!(rand() % 10))
+            super.shoot();
+        if(this.y > this.game.height)
+            this.disappear();
+    }
+
+    shouldMoveX(xShift) {
+        return false;//this.x + xShift> 0 && this.x + xShift  < this.game.width;
+    }
+
+    disappear() {
+        this.game.drawables.splice(this.game.drawables.indexOf(this), 1);
+    }
+
+    shouldMoveY(yShift) {
+        return true;//this.y - yShift > 0 && this.y - yShift < this.game.height;
+    }
+
+}

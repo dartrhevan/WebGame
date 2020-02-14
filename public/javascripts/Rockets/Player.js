@@ -1,4 +1,4 @@
-import Rocket from "../rocket.js";
+import Rocket from "./rocket.js";
 import Ball from "../Balls/ball.js";
 import Asteroid from "../Balls/asteroid.js";
 import {Bonus} from "../Balls/bonus.js";

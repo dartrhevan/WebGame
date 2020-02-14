@@ -1,11 +1,11 @@
-import Rocket from "../rocket.js";
+import Rocket from "./rocket.js";
 import rand from "../rand.js";
 
 export default class Enemy extends Rocket {
 
-    constructor(x, y, game) {
+    constructor(x, y, game, v) {
         super(game);
-        this.velocity = 7;
+        this.velocity = v;
         this.x = x;
         this.y = y;
         this.angle = Math.PI;

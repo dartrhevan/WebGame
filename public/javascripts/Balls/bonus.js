@@ -15,7 +15,7 @@ export class Bonus extends Ball {
         this.ctx.font = "25px Arial";
         this.ctx.textAlign = "center";
         this.ctx.fillStyle = '#000000';
-        this.ctx.fillText(this.text, this.x, this.y);
+        this.ctx.fillText(this.text, this.x, this.y + this.radius / 2);
         this.ctx.restore();
     }
 

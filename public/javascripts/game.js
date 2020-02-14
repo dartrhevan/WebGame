@@ -1,17 +1,17 @@
-import Rocket from "../rocket.js";
-import Asteroid from "../Balls/asteroid.js";
-import Ball from "../Balls/ball.js";
-import {LifeBonus, ScoreBonus} from "../Balls/bonus.js";
-import Player from "./Player.js";
-import rand from "../rand.js";
-import Enemy from "./enemy.js";
+import Rocket from "./Rockets/rocket.js";
+import Asteroid from "./Balls/asteroid.js";
+import Ball from "./Balls/ball.js";
+import {LifeBonus, ScoreBonus} from "./Balls/bonus.js";
+import Player from "./Rockets/Player.js";
+import rand from "./rand.js";
+import Enemy from "./Rockets/enemy.js";
 
 export default class Game {
     constructor(ctx, w, h) {
         this.ctx = ctx;
         this.width = w;
         this.height = h;
-        this.period = 55;
+        this.period = 50;
         //this.timer = {};
         //this.int = setInterval(this.act.bind(this), period);
         window.onkeydown = ev => {
@@ -61,13 +61,15 @@ export default class Game {
         window.onkeypress = e => e.key.toLowerCase() === 'k' ||  e.key.toLowerCase() === 'л' ? this.rocket.shoot() : null;
         /*clearInterval(this.int);
         this.int = setInterval(this.act.bind(this), this.period);*/
-
+        const increse = () => this.speed += 15 / this.speed;
+        setInterval(increse.bind(this), 20000)
     }
 
     startNewGame() {
         this.rocket = new Player(this);
         this.drawables = [];
         this.bullets = [];
+        this.speed = 10;
     }
 
 
@@ -102,6 +104,7 @@ export default class Game {
         $('#b').html(this.rocket.bullets);
     }
 
+    speed = 10;
     draw() {
         this.ctx.clearRect(0,0,600,800);
         this.rocket.draw();
@@ -111,7 +114,7 @@ export default class Game {
         //const size = Math.random() % 2;
         //for(let i = 0; i < size; ++i)
         if( rand() % 13 === 0)
-            this.drawables.push(getDrawable(rand(this.width), 0, 15, this))
+            this.drawables.push(getDrawable(rand(this.width), 0, 15, this, -this.speed))
     }
     /*
         removeAsteroids() {
@@ -120,13 +123,13 @@ export default class Game {
 }
 
 
-function getDrawable(x, y, radius, game) {
+function getDrawable(x, y, radius, game, v) {
     const r = rand();
     if(r <= 50)
-        return new Asteroid(x,y,radius,game, rand(0, 1));
+        return new Asteroid(x,y,radius,game, rand(0, 1), v);
     else if(r <= 70)
-        return new Enemy(x, y, game);
+        return new Enemy(x, y, game, -v * 0.8);
     else if(r <= 90)
-        return new ScoreBonus(x,y,radius,game);
-    else return new LifeBonus(x,y,radius,game)
+        return new ScoreBonus(x,y,radius,game, v);
+    else return new LifeBonus(x,y,radius,game, v)
 }

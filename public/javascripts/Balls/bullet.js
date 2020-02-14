@@ -1,6 +1,6 @@
 import Asteroid from "./asteroid.js";
 import Ball from "./ball.js";
-import Rocket from "../rocket.js";
+import Rocket from "../Rockets/rocket.js";
 
 export default class Bullet extends Ball
 {

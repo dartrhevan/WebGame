@@ -1,8 +1,9 @@
-import Drawable from "./drawable.js";
-import Asteroid from "./Balls/asteroid.js";
-import Bullet from "./Balls/bullet.js";
-import {LifeBonus, ScoreBonus, Bonus} from "./Balls/bonus.js";
-import Ball from "./Balls/ball.js";
+import Drawable from "../drawable.js";
+import Asteroid from "../Balls/asteroid.js";
+import Bullet from "../Balls/bullet.js";
+import {LifeBonus, ScoreBonus, Bonus} from "../Balls/bonus.js";
+import Ball from "../Balls/ball.js";
+import rotatePoint from "./rotate.js";
 
 export default class Rocket extends Drawable {
     constructor(game) {
@@ -18,38 +19,36 @@ export default class Rocket extends Drawable {
     goBack = false;
     moving = false;
 
+    getPoints() {
+        const basePoint = rotatePoint(this.x, this.y, this.angle);
+        const rightAbove = {x: basePoint.x + this.width, y: basePoint.y };
+        const rightBelow = {x: basePoint.x + this.width, y: basePoint.y + this.height};
+        const below = {x: basePoint.x, y: basePoint.y + this.height};
+        return [rotatePoint(basePoint.x, basePoint.y, -this.angle), rotatePoint(below.x, below.y, -this.angle),
+            rotatePoint(rightAbove.x, rightAbove.y, -this.angle), rotatePoint(rightBelow.x, rightBelow.y, - this.angle) ];
+    }
 
-    checkIntersection(drawable) {
-
-        const x = this.x * Math.cos(this.angle) + this.y * Math.sin(this.angle);
-        const y = -this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
-        const dx = drawable.x * Math.cos(this.angle) + drawable.y * Math.sin(this.angle);
-        const dy = -drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);
+    checkBallIntersection(xb, yb, radius) {
+        const {x, y} = rotatePoint(this.x, this.y, this.angle);
+        const t = rotatePoint(xb, yb, this.angle);
+        const dx = t.x, dy = t.y;
         const cx = x + this.width / 2;
         const cy = y + this.height / 2;
-        if(drawable instanceof Ball) {/*
-            const x = this.x * Math.cos(this.angle) + this.y * Math.sin(this.angle);
-            const y = -this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
-            const dx = drawable.x * Math.cos(this.angle) + drawable.y * Math.sin(this.angle);
-            const dy = -drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);
-            const cx = x + this.width / 2;
-            const cy = y + this.height / 2;*/
-            return Math.abs(cx - dx) <= drawable.radius + this.width / 2 &&
-                Math.abs(cy - dy) <= drawable.radius + this.height / 2;
-        }
-        else if (drawable instanceof Rocket) {/*
-            const x = this.x * Math.cos(this.angle) + this.y * Math.sin(this.angle);
-            const y = -this.x * Math.sin(this.angle) + this.y * Math.cos(this.angle);
-            const cx = x + this.width / 2;
-            const cy = y + this.height / 2;
+        return Math.abs(cx - dx) <= radius + this.width / 2 &&
+            Math.abs(cy - dy) <= radius + this.height / 2;
+    }
 
-            const x2 = drawable.x * Math.cos(this.angle) + drawable.y * Math.sin(this.angle);
-            const y2 = -drawable.x * Math.sin(this.angle) + drawable.y * Math.cos(this.angle);*/
-            const cx2 = dx + drawable.width / 2;
-            const cy2= dy + drawable.height / 2;
-            return Math.sqrt((cx- cx2) ** 2 + (cy - cy2) ** 2) <= this.height;
-        }
+    checkRocketIntersection(drawable)
+    {
+        const ch = ({x, y}) => this.checkBallIntersection(x, y, 1);
+        return drawable.getPoints().some(ch.bind(this));// || this.getPoints().some(ch.bind(drawable));
+    }
 
+    checkIntersection(drawable) {
+        if(drawable instanceof Ball)
+            return this.checkBallIntersection(drawable.x, drawable.y, drawable.radius);
+        else if (drawable instanceof Rocket)
+            return this.checkRocketIntersection(drawable);
     }
 
     interact(drawable) {
@@ -121,7 +120,7 @@ export default class Rocket extends Drawable {
     }*/
 
     shoot() {
-        this.game.bullets.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, 17, this.angle));
+        this.game.bullets.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, Math.max(1.6 * this.velocity, 17), this.angle));
         //this.bullets--;
     }
 }

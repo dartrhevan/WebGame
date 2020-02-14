@@ -13,7 +13,7 @@ export default class Enemy extends Rocket {
 
     act() {
         super.act();
-        if(!(rand() % 10))
+        if(!(rand() % 15))
             super.shoot();
         if(this.y > this.game.height)
             this.disappear();
@@ -25,6 +25,7 @@ export default class Enemy extends Rocket {
 
     disappear() {
         this.game.drawables.splice(this.game.drawables.indexOf(this), 1);
+        this.game.rocket.scores++;
     }
 
     shouldMoveY(yShift) {

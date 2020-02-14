@@ -5,6 +5,7 @@ import {LifeBonus, ScoreBonus} from "./Balls/bonus.js";
 import Player from "./Rockets/Player.js";
 import rand from "./rand.js";
 import Enemy from "./Rockets/enemy.js";
+import {BulletBonus} from "./Balls/bonus.js";
 
 export default class Game {
     constructor(ctx, w, h) {
@@ -102,8 +103,15 @@ export default class Game {
         $('#s').html(this.rocket.scores);
         $('#l').html(this.rocket.lives);
         $('#b').html(this.rocket.bullets);
+        this.checkGameOver();
     }
-
+    checkGameOver() {
+        if(!this.rocket.lives) {
+            alert(`Game over! Your scores: ${this.rocket.scores}`);
+            this.startNewGame();
+            this.pause();
+        }
+    }
     speed = 10;
     draw() {
         this.ctx.clearRect(0,0,600,800);
@@ -129,6 +137,8 @@ function getDrawable(x, y, radius, game, v) {
         return new Asteroid(x,y,radius,game, rand(0, 1), v);
     else if(r <= 70)
         return new Enemy(x, y, game, -v * 0.8);
+    else if(r <= 80)
+        return new BulletBonus(x,y,radius,game, v);
     else if(r <= 90)
         return new ScoreBonus(x,y,radius,game, v);
     else return new LifeBonus(x,y,radius,game, v)

@@ -43,5 +43,15 @@ export class ScoreBonus extends Bonus {
         rocket.scores += 3;
     }
     text='3';
+}
 
+export class BulletBonus extends Bonus {
+    constructor(...args) {
+        super(...args);
+    }
+    interact(rocket) {
+        super.interact(rocket);
+        rocket.bullets += 5;
+    }
+    text='B';
 }

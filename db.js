@@ -8,6 +8,7 @@ const User  = mongoose.model('User', new Schema({
 
 const Record = mongoose.model('Record', new Schema({
     userId: Schema.Types.ObjectId,
+    username: String,
     scores: Number,
     date: Date
 }));

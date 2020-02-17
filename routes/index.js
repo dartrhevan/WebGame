@@ -13,8 +13,11 @@ const { User, Record } = require('../db');
   //res.render('index', { title: 'Express' });
 });*/
 
-router.post('/login', checkNotAuthentication, passport.authenticate('login', {
-  successRedirect: '/u',
+router.post('/login', (req, resp, next) => {
+    console.log(req.body);
+    next();
+}, checkNotAuthentication, passport.authenticate('login', {
+  successRedirect: '/username',
   failureRedirect: '/?fail',
   //failureFlash : true
 }));
@@ -25,12 +28,12 @@ router.post('/signup',  checkNotAuthentication, passport.authenticate('signup', 
   //failureFlash : true
 }));
 
-router.get('/u', (req, res) => {
-  console.log(req.isAuthenticated());
-   res.send(req.user);
+router.get('/username', checkAuthentication, (req, res) => {
+   console.log(req.isAuthenticated());
+   res.json({ username: req.user.username });
 });
 
-router.get('/records', getRecords);
+router.get('/get_records', getRecords);
 
 router.post('/add_record', checkAuthentication, addRecord);
 

@@ -12,18 +12,75 @@ a {
   height: 100%;*/
   background-color: #000044;
 }
-/*
-header {
-  height: 15px;
-  position: absolute;
-  background-color: red;
-  top: 0;
-  left: 0;
+
+#authForm {
+  height: 300px;
+  width: 300px;
+  background: white;
+  box-shadow: 2px 2px 2px 2px;
+  display: none;
+  position: fixed;
+  left: calc(50% - 150px);
+  font-size: 16px;
+}
+
+#regForm, #loginForm {
+  padding: 10px;
+}
+
+#regForm input, #loginForm input {
   width: 100%;
 }
 
-header:hover {
-  position: static;
-  height: 75px;
-  background-color: purple;
-}*/
+button:hover {
+  background: darkblue;
+  cursor: pointer;
+  color: lightgray;
+  outline: 2px solid darkblue;
+}
+
+button {
+  transition: background-color 250ms;
+  background: #1C1CFF;
+  color: black;
+  border: none;
+  font-size: 20px;
+  margin: 10px 10px 10px 0;
+}
+
+#loginForm {
+
+}
+
+#regForm {
+  display: none;
+}
+
+#switcher {
+  display: flex;
+  flex-direction: row;
+  background: lightgray;
+}
+
+#switcher div:nth-child(n) {
+  margin: 0;
+  min-height: 25px;
+  transition: background-color 250ms;
+  /*display: inline-block;*/
+}
+
+.current-switch {
+  background: white;
+  padding: 0 5px;
+}
+
+.switch {
+  padding: 0 5px;
+  background: grey;
+  cursor: pointer;
+}
+
+.switch:hover {
+  background: darkgray;
+  cursor: pointer;
+}

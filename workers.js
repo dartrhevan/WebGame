@@ -6,8 +6,9 @@ const { User, Record } = require('./db');
  * scores
  * */
 function addRecord(req , res) {
+
     Record.find(function (err , results) {
-        if (results.length <= 0 || results[results.length - 1] < req.body.scores) {
+        if (results.length <= 0 || results[0] < req.body.scores) {
             const rec = new Record();
             rec.userId = req.user._id;
             rec.username = req.user.username;
@@ -25,7 +26,8 @@ function addRecord(req , res) {
 function getRecords(req, res) {
     Record.find(function(err, results) {
         res.send(results);
-    }).sort({scores: -1}).limit(10);
+    }).sort({scores: -1}).limit(10);//.toArray();
+    //console.log(a)
 }
 
 function editUser(req, res) {

@@ -71,6 +71,7 @@ export default class Game {
         this.drawables = [];
         this.bullets = [];
         this.speed = 10;
+        this.invalidate();
     }
 
 
@@ -105,6 +106,14 @@ export default class Game {
         $('#b').html(this.rocket.bullets);
         this.checkGameOver();
     }
+
+    invalidate()
+    {
+        this.draw();
+        this.drawables.forEach(a => a.draw());
+        this.bullets.forEach(a => a.draw());
+    }
+
     checkGameOver() {
         if(!this.rocket.lives) {
             alert(`Game over! Your scores: ${this.rocket.scores}`);

@@ -6,8 +6,44 @@
     <link rel="stylesheet" href="stylesheets/style.css"/>
     <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
     <script src="./javascripts/main.js" type="module"></script>
+    <script src="./javascripts/handlers.js"></script>
 </head>
 <body>
+<div align="end">
+    <button id="logBut" onclick="showLoginForm()">login/register</button>
+</div>
+<div id="authForm">
+    <div id="switcher">
+        <div id="login"  class="current-switch">Log in</div>
+        <div id="signup" onclick="choose(event)" class="switch">Sign up</div>
+    </div>
+    <div id="loginForm">
+        <label>Login</label>
+        <input name="username" type="text"/>
+        <br/>
+        <br/>
+        <label>Password</label>
+        <input name="password" type="password"/>
+        <br/>
+        <br/>
+        <button onclick="sendLogin()">Send</button>
+    </div>
+    <div id="regForm">
+        <label>Login</label>
+        <input id="username" type="text"/>
+        <br/>
+        <br/>
+        <label>Password</label>
+        <input name="password" id="pass" type="password"/>
+        <br/>
+        <br/>
+        <label>Confirm password</label>
+        <input id="passConf" type="password"/>
+        <br/>
+        <br/>
+        <button onclick="sendRegistration()">Send</button>
+    </div>
+</div>
 <div align="center">
     <span id="l">5</span>
     <span id="s">0</span>
@@ -17,6 +53,5 @@
     <br/>
     <canvas id="canvas" height="600" width="400"></canvas>
 </div>
-
 </body>
 </html>

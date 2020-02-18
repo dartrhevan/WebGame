@@ -62,8 +62,8 @@ export default class Game {
         window.onkeypress = e => e.key.toLowerCase() === 'k' ||  e.key.toLowerCase() === 'л' ? this.rocket.shoot() : null;
         /*clearInterval(this.int);
         this.int = setInterval(this.act.bind(this), this.period);*/
-        const increse = () => this.speed += 15 / this.speed;
-        setInterval(increse.bind(this), 20000)
+        this.increase = () => this.speed += 15 / this.speed;
+        this.increaseInt = setInterval(this.increase.bind(this), 30000)
     }
 
     startNewGame() {
@@ -76,10 +76,14 @@ export default class Game {
 
 
     pause() {
-        if(this.int)
+        if(this.int) {
+            this.increase= clearInterval(this.increaseInt);
             this.int = clearInterval(this.int);
-        else
-            this.int = setInterval(this.act.bind(this), this.period);
+        }
+        else {
+            this.int = setInterval(this.act.bind(this) , this.period);
+            this.increaseInt = setInterval(this.increase.bind(this), 30000)
+        }
     }
 
     act() {

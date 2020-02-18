@@ -17,33 +17,52 @@
         <div id="login"  class="current-switch">Log in</div>
         <div id="signup" onclick="choose(event)" class="switch">Sign up</div>
     </div>
-    <div id="loginForm">
+    <form id="loginForm">
         <label>Login</label>
-        <input name="username" type="text"/>
+        <input required="required" name="username" type="text"/>
         <br/>
         <br/>
         <label>Password</label>
-        <input name="password" type="password"/>
+        <input required="required" name="password" type="password"/>
         <br/>
         <br/>
-        <button onclick="sendLogin()">Send</button>
-    </div>
-    <div id="regForm">
+        <button onclick="sendLogin(event)">Send</button>
+    </form>
+    <form id="regForm">
         <label>Login</label>
-        <input id="username" type="text"/>
+        <input required="required" name="username" type="text"/>
         <br/>
         <br/>
         <label>Password</label>
-        <input name="password" id="pass" type="password"/>
+        <input required="required" name="password" id="pass" type="password"/>
         <br/>
         <br/>
         <label>Confirm password</label>
-        <input id="passConf" type="password"/>
+        <input required="required" id="passConf" type="password"/>
         <br/>
         <br/>
-        <button onclick="sendRegistration()">Send</button>
-    </div>
+        <button onclick="sendRegistration(event)">Send</button>
+    </form>
 </div>
+<form id="editForm">
+    <label>Username</label>
+    <input required="required" name="username" type="text"/>
+    <br/>
+    <br/>
+    <label>New password</label>
+    <input required="required" name="password" id="newPass" type="password"/>
+    <br/>
+    <br/>
+    <label>Confirm password</label>
+    <input required="required" id="newPassConf" type="password"/>
+    <br/>
+    <br/>
+    <label>Current password</label>
+    <input required="required" name="oldPassword" type="password"/>
+    <br/>
+    <br/>
+    <button onclick="sendEdit()">Send</button>
+</form>
 <div align="center">
     <span id="l">5</span>
     <span id="s">0</span>

@@ -24,11 +24,11 @@ a {
   font-size: 16px;
 }
 
-#regForm, #loginForm {
+#regForm, #loginForm, #editForm {
   padding: 10px;
 }
 
-#regForm input, #loginForm input {
+#regForm input, #loginForm input, #editForm input {
   width: 100%;
 }
 
@@ -40,7 +40,7 @@ button:hover {
 }
 
 button {
-  transition: background-color 250ms;
+  transition: background-color, outline-color 250ms;
   background: #1C1CFF;
   color: black;
   border: none;
@@ -52,7 +52,7 @@ button {
 
 }
 
-#regForm {
+#regForm, #editForm {
   display: none;
 }
 

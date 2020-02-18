@@ -13,24 +13,35 @@ const { User, Record } = require('../db');
   //res.render('index', { title: 'Express' });
 });*/
 
-router.post('/login', (req, resp, next) => {
-    console.log(req.body);
-    next();
-}, checkNotAuthentication, passport.authenticate('login', {
+router.post('/login', checkNotAuthentication, passport.authenticate('login', {
   successRedirect: '/username',
-  failureRedirect: '/?fail',
+  failureRedirect: '/username?fail',
   //failureFlash : true
 }));
 
-router.post('/signup',  checkNotAuthentication, passport.authenticate('signup', {
-  successRedirect: '/',
-  failureRedirect: '/?fail',
+router.post('/signup', (req,res,n) => {
+  console.log(req.body);
+  n();
+},  checkNotAuthentication, passport.authenticate('signup', {
+  successRedirect: '/reg-res',
+  failureRedirect: '/reg-res?fail',
   //failureFlash : true
 }));
 
-router.get('/username', checkAuthentication, (req, res) => {
+router.get('/username', (req, res) => {/*
+   console.log(req.query);*/
    console.log(req.isAuthenticated());
-   res.json({ username: req.user.username });
+   if(req.user)
+        res.json({ username: req.user.username });
+   else
+       res.json({err: "A problem with authentication has occurred"});
+});
+
+router.get('/reg-res', (req, res) =>
+{
+   if(req.query.fail)
+       res.json({err: "A problem with registration has occurred"});
+   else res.json({res: "OK"});
 });
 
 router.get('/get_records', getRecords);

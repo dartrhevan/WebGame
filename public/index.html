@@ -9,7 +9,7 @@
     <script src="./javascripts/handlers.js"></script>
 </head>
 <body>
-<div align="end">
+<div align="end" id="reg">
     <button id="logBut" onclick="showLoginForm()">login/register</button>
 </div>
 <div id="authForm">
@@ -49,19 +49,20 @@
     <input required="required" name="username" type="text"/>
     <br/>
     <br/>
-    <label>New password</label>
-    <input required="required" name="password" id="newPass" type="password"/>
-    <br/>
-    <br/>
-    <label>Confirm password</label>
-    <input required="required" id="newPassConf" type="password"/>
-    <br/>
+    <details>
+        <label>New password</label>
+        <input required="required" name="password" id="newPass" type="password"/>
+        <br/>
+        <br/>
+        <label>Confirm password</label>
+        <input id="newPassConf" type="password"/>
+    </details>
     <br/>
     <label>Current password</label>
-    <input required="required" name="oldPassword" type="password"/>
+    <input name="oldPassword" type="password"/>
     <br/>
     <br/>
-    <button onclick="sendEdit()">Send</button>
+    <button onclick="sendEdit(event)">Send</button>
 </form>
 <div align="center">
     <span id="l">5</span>

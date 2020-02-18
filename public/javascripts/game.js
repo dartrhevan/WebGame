@@ -63,10 +63,10 @@ export default class Game {
         /*clearInterval(this.int);
         this.int = setInterval(this.act.bind(this), this.period);*/
         this.increase = () => this.speed += 15 / this.speed;
-        this.increaseInt = setInterval(this.increase.bind(this), 30000)
     }
 
     startNewGame() {
+        //this.increaseInt = setInterval(this.increase.bind(this), 30000)
         this.rocket = new Player(this);
         this.drawables = [];
         this.bullets = [];

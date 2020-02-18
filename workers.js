@@ -29,7 +29,12 @@ function getRecords(req, res) {
     }).sort({scores: -1}).limit(10);//.toArray();
     //console.log(a)
 }
-
+/**
+ * @params:
+ * username
+ * oldPassword
+ * password
+ * */
 function editUser(req, res) {
     if(!req.body.oldPassword || !isValidPassword(req.body.oldPassword, req.user.password))
     {
@@ -49,7 +54,7 @@ function editUser(req, res) {
             }
             for(let rec of resuslt)
                 Record.findByIdAndUpdate(rec._id, { $set: {username: name} }, {useFindAndModify: true}, e => console.log(e));
-            res.send({result: "OK!"});
+            res.send({res: "OK"});
         })
     })
 }

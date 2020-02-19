@@ -13,7 +13,8 @@ export default class Bullet extends Ball
     }
 
     disappear() {
-        this.game.bullets.splice(this.game.drawables.indexOf(this), 1);
+        console.log('BD');
+        this.game.bullets.splice(this.game.bullets.indexOf(this), 1);
     }
 
     checkIntersection(drawable) {

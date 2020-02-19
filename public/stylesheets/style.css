@@ -1,6 +1,9 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: darkslateblue;
+  display: grid;
+  grid-template-rows: 50px 1fr 50px;
+  margin: 0;
+  background-color: #000044;
 }
 
 a {
@@ -8,12 +11,15 @@ a {
 }
 
 #canvas {
-  /*width: 100%;
-  height: 100%;*/
   background-color: #000044;
 }
 
-#authForm, #editForm {
+header span {
+  font-size: 16px;
+  color: #1C1CFF;
+}
+
+#authForm, #editForm, #leaderBoard {
   height: 300px;
   width: 300px;
   background: white;
@@ -39,7 +45,8 @@ button:hover {
   outline: 2px solid darkblue;
 }
 
-#reg {
+header, footer {
+  background: black;
   float: right;
 }
 
@@ -56,7 +63,7 @@ button {
 
 }
 
-#regForm, #editForm {
+#regForm, #editForm, #leaderBoard {
   display: none;
 }
 

@@ -9,9 +9,15 @@
     <script src="./javascripts/handlers.js"></script>
 </head>
 <body>
-<div align="end" id="reg">
+<header align="end">
+    <span id="l">5</span>
+    <span id="s">0</span>
+    <span id="b">20</span>
+    <button id="restartBut">Restart</button>
+    <button id="startBut">Start/Pause</button>
     <button id="logBut" onclick="showLoginForm()">login/register</button>
-</div>
+    <button id="leads" onclick="showLeaderBoard()">Leader board</button>
+</header>
 <div id="authForm">
     <div id="switcher">
         <div id="login"  class="current-switch">Log in</div>
@@ -64,14 +70,12 @@
     <br/>
     <button onclick="sendEdit(event)">Send</button>
 </form>
+<div id="leaderBoard"></div>
 <div align="center">
-    <span id="l">5</span>
-    <span id="s">0</span>
-    <span id="b">20</span>
-    <button id="rst">Restart</button>
-    <button id="st">Start/Pause</button>
-    <br/>
-    <canvas id="canvas" height="600" width="400"></canvas>
+    <canvas id="canvas" ></canvas>
 </div>
+<footer>
+    WebGame
+</footer>
 </body>
 </html>

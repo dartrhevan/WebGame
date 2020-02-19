@@ -140,3 +140,8 @@ function toggleForm(form) {
             opacity: "0"
         } , 250, () =>  $(form).css("display" , "none"));
 }
+
+function showLeaderBoard()
+{
+    toggleForm("#leaderBoard");
+}

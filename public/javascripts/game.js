@@ -6,6 +6,7 @@ import Player from "./Rockets/Player.js";
 import rand from "./rand.js";
 import Enemy from "./Rockets/enemy.js";
 import {BulletBonus} from "./Balls/bonus.js";
+import {resize} from "./resize.js";
 
 export default class Game {
     constructor(ctx, w, h) {
@@ -57,16 +58,28 @@ export default class Game {
         };
         this.startNewGame();
         //const startGame = () => this.restart();
-        $('#rst').click(this.startNewGame.bind(this));
-        $('#st').click(this.pause.bind(this));
         window.onkeypress = e => e.key.toLowerCase() === 'k' ||  e.key.toLowerCase() === 'л' ? this.rocket.shoot() : null;
         /*clearInterval(this.int);
         this.int = setInterval(this.act.bind(this), this.period);*/
-        this.increase = () => this.speed += 15 / this.speed;
+/*
+        $('#restartBut').click(this.startNewGame.bind(g));
+        $('#startBut').click(this.pause.bind(g));*/
+
+    }
+    increase()  {
+        this.speed += 15 / this.speed;
+        if(!rand(5) && this.frequency > 10)
+            this.frequency--;
+    }
+
+    get isPaused() {
+        return !this.int;
     }
 
     startNewGame() {
         //this.increaseInt = setInterval(this.increase.bind(this), 30000)
+
+        resize(canvas, this);
         this.rocket = new Player(this);
         this.drawables = [];
         this.bullets = [];
@@ -74,15 +87,17 @@ export default class Game {
         this.invalidate();
     }
 
-
+    frequency = 13;
     pause() {
         if(this.int) {
-            this.increase= clearInterval(this.increaseInt);
+            this.increase = clearInterval(this.increaseInt);
             this.int = clearInterval(this.int);
+            window.onresize = resize(canvas);
         }
         else {
             this.int = setInterval(this.act.bind(this) , this.period);
             this.increaseInt = setInterval(this.increase.bind(this), 30000)
+            window.onresize = null;//resize(canvas);
         }
     }
 
@@ -105,9 +120,9 @@ export default class Game {
                 this.rocket.interact(a);
         });
         this.generateDrawable();
-        $('#s').html(this.rocket.scores);
-        $('#l').html(this.rocket.lives);
-        $('#b').html(this.rocket.bullets);
+        $('#scores').html(this.rocket.scores);
+        $('#lives').html(this.rocket.lives);
+        $('#bullets').html(this.rocket.bullets);
         this.checkGameOver();
     }
 
@@ -127,14 +142,14 @@ export default class Game {
     }
     speed = 10;
     draw() {
-        this.ctx.clearRect(0,0,600,800);
+        this.ctx.clearRect(0,0,this.width,this.height);
         this.rocket.draw();
     }
 
     generateDrawable() {
         //const size = Math.random() % 2;
         //for(let i = 0; i < size; ++i)
-        if( rand() % 13 === 0)
+        if( rand() % this.frequency === 0)
             this.drawables.push(getDrawable(rand(this.width), 0, 15, this, -this.speed))
     }
     /*
@@ -150,7 +165,7 @@ function getDrawable(x, y, radius, game, v) {
         return new Asteroid(x,y,radius,game, rand(0, 1), v);
     else if(r <= 70)
         return new Enemy(x, y, game, -v * 0.8);
-    else if(r <= 80)
+    else if(r <= 77)
         return new BulletBonus(x,y,radius,game, v);
     else if(r <= 90)
         return new ScoreBonus(x,y,radius,game, v);

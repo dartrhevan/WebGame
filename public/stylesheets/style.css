@@ -63,6 +63,29 @@ button {
 
 }
 
+body table#leaderBoard {
+  height: 500px;
+  width: 500px;
+  left: calc(50% - 250px);
+  background: #1C1CFF;
+}
+
+body table#leaderBoard td {
+  width: 33.3%;
+}
+
+tbody tr:nth-of-type(odd) {
+  background: grey;
+}
+
+tr {
+  background: white;
+}
+
+td {
+  background: inherit;
+}
+
 #regForm, #editForm, #leaderBoard {
   display: none;
 }

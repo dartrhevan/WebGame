@@ -10,13 +10,13 @@
 </head>
 <body>
 <header align="end">
-    <span id="l">5</span>
-    <span id="s">0</span>
-    <span id="b">20</span>
+    <span id="lives">5</span>
+    <span id="scores">0</span>
+    <span id="bullets">20</span>
     <button id="restartBut">Restart</button>
     <button id="startBut">Start/Pause</button>
-    <button id="logBut" onclick="showLoginForm()">login/register</button>
     <button id="leads" onclick="showLeaderBoard()">Leader board</button>
+    <button id="logBut" onclick="showLoginForm()">login/register</button>
 </header>
 <div id="authForm">
     <div id="switcher">
@@ -70,7 +70,17 @@
     <br/>
     <button onclick="sendEdit(event)">Send</button>
 </form>
-<div id="leaderBoard"></div>
+<table id="leaderBoard">
+    <thead>
+        <tr>
+            <td>Username</td>
+            <td>Scores</td>
+            <td>Date</td>
+        </tr>
+    </thead>
+    <tbody id="list">
+    </tbody>
+</table>
 <div align="center">
     <canvas id="canvas" ></canvas>
 </div>

@@ -6,7 +6,7 @@ $(function () {
     //const canvas = document.getElementById('canvas');//$('#canvas');
     const ctx = canvas.getContext('2d');
     const g = new Game(ctx, canvas.width, canvas.height);
-    resize(canvas, g);
+    resize(g);
     $('#restartBut').click(g.startNewGame.bind(g));
     $('#startBut').click(g.pause.bind(g));
     fetch('/username')
@@ -17,7 +17,7 @@ $(function () {
         else showUserName(resp)
     }).catch(e => console.log(e));
 });
-
+/*
 function setInt(func, period, timeout) {
     timeout.id = setTimeout(() => {
         func();
@@ -25,3 +25,4 @@ function setInt(func, period, timeout) {
     }, period);
 }
 
+*/

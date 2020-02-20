@@ -13,4 +13,6 @@ const Record = mongoose.model('Record', new Schema({
     date: Date
 }));
 
+mongoose.connect('mongodb+srv://laptop:android@cluster0-dprw7.mongodb.net/test?retryWrites=true&w=majority');
+
 module.exports = { User, Record };

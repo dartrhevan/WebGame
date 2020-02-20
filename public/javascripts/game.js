@@ -79,7 +79,7 @@ export default class Game {
     startNewGame() {
         //this.increaseInt = setInterval(this.increase.bind(this), 30000)
 
-        resize(canvas, this);
+        resize(this);
         this.rocket = new Player(this);
         this.drawables = [];
         this.bullets = [];
@@ -90,13 +90,13 @@ export default class Game {
     frequency = 13;
     pause() {
         if(this.int) {
-            this.increase = clearInterval(this.increaseInt);
+            this.increaseInt = clearInterval(this.increaseInt);
             this.int = clearInterval(this.int);
-            window.onresize = resize(canvas);
+            window.onresize = resize(this);
         }
         else {
             this.int = setInterval(this.act.bind(this) , this.period);
-            this.increaseInt = setInterval(this.increase.bind(this), 30000)
+            this.increaseInt = setInterval(this.increase.bind(this), 30000);
             window.onresize = null;//resize(canvas);
         }
     }
@@ -136,6 +136,27 @@ export default class Game {
     checkGameOver() {
         if(!this.rocket.lives) {
             alert(`Game over! Your scores: ${this.rocket.scores}`);
+            fetch('/add_record', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:
+                    JSON.stringify({
+                        scores: this.rocket.scores
+                    })
+            }).then(reps => reps.json())
+                .then(resp => {
+                    if(resp.res === 'OK')
+                        alert("Your record has been successfully saved");
+                    else if(resp.res === "Too little")
+                        alert("Your result isn't brilliant");
+                    else {
+                        alert('Error!');
+                        console.log(resp);
+                    }
+                    showLeaderBoard();
+                });
             this.startNewGame();
             this.pause();
         }

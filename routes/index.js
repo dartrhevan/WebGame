@@ -1,22 +1,14 @@
-//import {editUser} from "../workers";
 
-const {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser} = require("../workers");
+
+const {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser, getUsername, registrationResult} = require("../workers");
 
 const express = require('express');
 const passport = require("passport");
 const router = express.Router();
-const { User, Record } = require('../db');
-
-
-/* GET home page. */
-/*router.get('/', function(req, res, next) {
-  //res.render('index', { title: 'Express' });
-});*/
 
 router.post('/login', checkNotAuthentication, passport.authenticate('login', {
   successRedirect: '/username',
-  failureRedirect: '/username?fail',
-  //failureFlash : true
+  failureRedirect: '/username?fail'
 }));
 
 router.post('/signup', (req,res,n) => {
@@ -28,21 +20,9 @@ router.post('/signup', (req,res,n) => {
   //failureFlash : true
 }));
 
-router.get('/username', (req, res) => {/*
-   console.log(req.query);*/
-   console.log(req.isAuthenticated());
-   if(req.user)
-        res.json({ username: req.user.username });
-   else
-       res.json({err: "A problem with authentication has occurred"});
-});
+router.get('/username', getUsername);
 
-router.get('/reg-res', (req, res) =>
-{
-   if(req.query.fail)
-       res.json({err: "A problem with registration has occurred"});
-   else res.json({res: "OK"});
-});
+router.get('/reg-res', registrationResult);
 
 router.get('/get_records', getRecords);
 

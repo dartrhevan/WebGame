@@ -143,5 +143,16 @@ function toggleForm(form) {
 
 function showLeaderBoard()
 {
-    toggleForm("#leaderBoard");
+    if($("#leaderBoard").css('display') === 'none')
+    fetch('/get_records')
+        .then(resp => resp.json())
+        .then(rec => {
+            $('#list').empty();
+            rec.forEach(r => $('#list').append(`<tr><td>${r.username}</td><td>${r.scores}</td><td>${r.date}</td></tr>`));
+            toggleForm("#leaderBoard");
+        })
+        .catch(e => console.log(e));
+    else
+        toggleForm("#leaderBoard");
+
 }

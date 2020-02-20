@@ -6,7 +6,6 @@ const { User, Record } = require('./db');
  * scores
  * */
 function addRecord(req , res) {
-
     Record.find(function (err , results) {
         if (results.length <= 0 || results[0] < req.body.scores) {
             const rec = new Record();
@@ -17,9 +16,9 @@ function addRecord(req , res) {
             rec.save(e => {
                 console.log(e)
             });
-            res.send({result: "OK"});
+            res.send({res: "OK"});
         } else
-            res.send({error: "Too little"});
+            res.send({res: "Too little"});
     }).sort({scores: -1}).limit(10);//.toArray(
 }
 
@@ -73,4 +72,20 @@ function checkNotAuthentication(req, res, next) {
         next();
 }
 
-module.exports = {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser};
+function getUsername(req, res) {/*
+   console.log(req.query);*/
+    console.log(req.isAuthenticated());
+    if(req.user)
+        res.json({ username: req.user.username });
+    else
+        res.json({err: "A problem with authentication has occurred"});
+}
+
+function registrationResult(req, res)
+{
+    if(req.query.fail)
+        res.json({err: "A problem with registration has occurred"});
+    else res.json({res: "OK"});
+}
+
+module.exports = {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser, getUsername, registrationResult};

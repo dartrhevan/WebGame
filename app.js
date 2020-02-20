@@ -12,9 +12,9 @@ const LocalStrategy = require('passport-local').Strategy;
 const { User } = require('./db');
 const {signup, login} = require('./passport');
 const app = express();
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/testDB');
+//mongoose.connect('mongodb+srv://laptop:android@cluster0-dprw7.mongodb.net/test?retryWrites=true&w=majority');
 
 passport.use('signup', signup);
 

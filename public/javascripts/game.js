@@ -92,7 +92,7 @@ export default class Game {
         if(this.int) {
             this.increaseInt = clearInterval(this.increaseInt);
             this.int = clearInterval(this.int);
-            window.onresize = resize(this);
+            window.onresize = resize.bind(null, this);
         }
         else {
             this.int = setInterval(this.act.bind(this) , this.period);

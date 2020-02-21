@@ -9,9 +9,7 @@ export default class Rocket extends Drawable {
     constructor(game) {
         super(game);
         this.width = 22.5;
-        //this.velocity = 15;
         this.height = 67.5;
-        //this.angle = Math.PI;
     }
 
     turningRight = false;
@@ -58,7 +56,7 @@ export default class Rocket extends Drawable {
         {
             this.lives--;
             drawable.disappear();
-            l.innerHTML = this.lives;
+            $('#lives').html(this.lives);
         }
     }
 
@@ -106,21 +104,11 @@ export default class Rocket extends Drawable {
         this.drawBody();
         this.ctx.restore();
     }
-/*
-    interact(drawable) {
-        if(drawable instanceof Bonus)
-            drawable.interact(this);
-        else if(drawable instanceof Ball)
-        {
-            this.lives--;
-            drawable.disappear();
-            //alert(this.lives);
-            l.innerHTML = this.lives;
-        }
-    }*/
 
     shoot() {
-        this.game.bullets.push(new Bullet(this.x + this.width / 2, this.y, 3, this.game, Math.max(1.6 * this.velocity, 17), this.angle));
-        //this.bullets--;
+        const radius = 3;
+        const {x, y} = rotatePoint(this.x, this.y, this.angle);
+        const bp = rotatePoint(x + this.width / 2, y - radius - 3, -this.angle);
+        this.game.bullets.push(new Bullet(bp.x, bp.y, radius, this.game, Math.max(2 * this.velocity, 20), this.angle));
     }
 }

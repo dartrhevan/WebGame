@@ -1,6 +1,5 @@
-import Rocket from "./Rockets/rocket.js";
+
 import Asteroid from "./Balls/asteroid.js";
-import Ball from "./Balls/ball.js";
 import {LifeBonus, ScoreBonus} from "./Balls/bonus.js";
 import Player from "./Rockets/Player.js";
 import rand from "./rand.js";
@@ -14,6 +13,7 @@ export default class Game {
         this.width = w;
         this.height = h;
         this.period = 50;
+        this.staticDrawables = [];
         //this.timer = {};
         //this.int = setInterval(this.act.bind(this), period);
         window.onkeydown = ev => {
@@ -118,6 +118,10 @@ export default class Game {
             a.draw();
             if(this.rocket.checkIntersection(a)/*this.rocket.getDistanceTo(a) < 1 * a.width*/)
                 this.rocket.interact(a);
+        });
+        this.staticDrawables.forEach(a => {
+            a.act();
+            a.draw();
         });
         this.generateDrawable();
         $('#scores').html(this.rocket.scores);

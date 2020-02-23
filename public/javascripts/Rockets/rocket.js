@@ -4,6 +4,8 @@ import Bullet from "../Balls/bullet.js";
 import {LifeBonus, ScoreBonus, Bonus} from "../Balls/bonus.js";
 import Ball from "../Balls/ball.js";
 import rotatePoint from "./rotate.js";
+import rand from "../rand.js";
+import Piece from "../Balls/piece.js";
 
 export default class Rocket extends Drawable {
     constructor(game) {
@@ -61,6 +63,7 @@ export default class Rocket extends Drawable {
     }
 
     act() {
+        this.generateTrace();
         this.move();
     }
 
@@ -110,5 +113,15 @@ export default class Rocket extends Drawable {
         const {x, y} = rotatePoint(this.x, this.y, this.angle);
         const bp = rotatePoint(x + this.width / 2, y - radius - 3, -this.angle);
         this.game.bullets.push(new Bullet(bp.x, bp.y, radius, this.game, Math.max(2 * this.velocity, 20), this.angle));
+    }
+
+    generateTrace() {
+        if(!rand(2)) {
+            const radius = 2.5;
+            const {x, y} = rotatePoint(this.x, this.y, this.angle);
+            const bp = rotatePoint(x + this.width / 2 + rand(this.width / 4, -this.width / 4), y + this.height, -this.angle);
+            //this.game.bullets.push(new Bullet(bp.x, bp.y, radius, this.game, Math.max(2 * this.velocity, 20), this.angle));
+            this.game.staticDrawables.push(new Piece(bp.x, bp.y, radius, this.game, -8, this.angle + rand(Math.PI / 5, -Math.PI / 5)));
+        }
     }
 }

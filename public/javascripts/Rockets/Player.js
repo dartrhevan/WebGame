@@ -31,7 +31,7 @@ export default class Player extends Rocket {
     act() {
         if(Math.abs(this.velocity) >= 0.01)
             this.rotate();
-        this.move();
+        super.act();
         if((this.moving || this.turningRight || this.turningLeft) && this.velocity < 12 && !this.goBack)
             this.velocity += 0.5;
         else if(this.velocity > -12)

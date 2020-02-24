@@ -4,14 +4,11 @@ import rand from "../rand.js";
 export default class Ball extends Drawable {
     constructor(x,y,radius,game, v = -10, a = 0) {
         super(game);
-        //this.disposable = d;
         this.x = x;
         this.y = y;
-        //this.ctx = ctx;
         this.radius = radius;
         this.velocity = v;
         this.angle = a;
-        //this.fillStyle = d ? '#442211' : '#000000';
     }
 
     act() {

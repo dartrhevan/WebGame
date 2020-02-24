@@ -6,6 +6,7 @@ import rand from "./rand.js";
 import Enemy from "./Rockets/enemy.js";
 import {BulletBonus} from "./Balls/bonus.js";
 import {resize} from "./resize.js";
+import Star from "./Balls/Star.js";
 
 export default class Game {
     constructor(ctx, w, h) {
@@ -14,8 +15,6 @@ export default class Game {
         this.height = h;
         this.period = 50;
         this.staticDrawables = [];
-        //this.timer = {};
-        //this.int = setInterval(this.act.bind(this), period);
         window.onkeydown = ev => {
             switch (ev.key.toLowerCase()) {
                 case 'ф':
@@ -57,13 +56,8 @@ export default class Game {
             }
         };
         this.startNewGame();
-        //const startGame = () => this.restart();
+        this.generateBackground();
         window.onkeypress = e => e.key.toLowerCase() === 'k' ||  e.key.toLowerCase() === 'л' ? this.rocket.shoot() : null;
-        /*clearInterval(this.int);
-        this.int = setInterval(this.act.bind(this), this.period);*/
-/*
-        $('#restartBut').click(this.startNewGame.bind(g));
-        $('#startBut').click(this.pause.bind(g));*/
 
     }
     increase()  {
@@ -77,7 +71,6 @@ export default class Game {
     }
 
     startNewGame() {
-        //this.increaseInt = setInterval(this.increase.bind(this), 30000)
 
         resize(this);
         this.rocket = new Player(this);
@@ -107,7 +100,7 @@ export default class Game {
         this.drawables.forEach(a => {
             a.act();
             a.draw();
-            if(this.rocket.checkIntersection(a)/*this.rocket.getDistanceTo(a) < 1 * a.width*/)
+            if(this.rocket.checkIntersection(a))
                 this.rocket.interact(a);
             for(let b of this.bullets)
                 if(b.checkIntersection(a))
@@ -116,12 +109,8 @@ export default class Game {
         this.bullets.forEach(a => {
             a.act();
             a.draw();
-            if(this.rocket.checkIntersection(a)/*this.rocket.getDistanceTo(a) < 1 * a.width*/)
+            if(this.rocket.checkIntersection(a))
                 this.rocket.interact(a);
-        });
-        this.staticDrawables.forEach(a => {
-            a.act();
-            a.draw();
         });
         this.generateDrawable();
         $('#scores').html(this.rocket.scores);
@@ -168,19 +157,23 @@ export default class Game {
     speed = 10;
     draw() {
         this.ctx.clearRect(0,0,this.width,this.height);
+        this.staticDrawables.forEach(a => {
+            a.act();
+            a.draw();
+        });
         this.rocket.draw();
     }
 
     generateDrawable() {
-        //const size = Math.random() % 2;
-        //for(let i = 0; i < size; ++i)
         if( rand() % this.frequency === 0)
             this.drawables.push(getDrawable(rand(this.width), 0, 15, this, -this.speed))
     }
-    /*
-        removeAsteroids() {
 
-        }*/
+    generateBackground() {
+        const count = rand(30) + 70;
+        for(let i = 0; i < count; i++)
+            this.staticDrawables.push(new Star(rand(this.width), rand(this.height), this));
+    }
 }
 
 

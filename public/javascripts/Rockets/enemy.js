@@ -1,5 +1,6 @@
 import Rocket from "./rocket.js";
 import rand from "../rand.js";
+import Piece from "../Balls/piece.js";
 
 export default class Enemy extends Rocket {
 
@@ -26,6 +27,11 @@ export default class Enemy extends Rocket {
     disappear() {
         this.game.drawables.splice(this.game.drawables.indexOf(this), 1);
         this.game.rocket.scores++;
+        const radius = 2.5;
+        const size = rand(8) +7;
+        for(let i = 0; i < size; i++)
+            this.game.staticDrawables.push(new Piece(this.x + this.width / 2, this.y - this.height / 2, radius, this.game, -15, rand(Math.PI * 2)));
+
     }
 
     shouldMoveY(yShift) {

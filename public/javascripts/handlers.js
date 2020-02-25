@@ -147,7 +147,8 @@ function showLeaderBoard()
     fetch('/get_records')
         .then(resp => resp.json())
         .then(rec => {
-            //$('#list').empty();
+            $('#list').empty();
+            $("#list").append('<div>Username</div><div>Scores</div><div>Date</div>');
             rec.forEach(r => $('#list').append(`<div>${r.username}</div><div>${r.scores}</div><div>${r.date}</div>`));
             toggleForm("#leaderBoard");
         })

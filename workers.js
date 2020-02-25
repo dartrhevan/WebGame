@@ -7,7 +7,9 @@ const { User, Record } = require('./db');
  * */
 function addRecord(req , res) {
     Record.find(function (err , results) {
-        if (results.length <= 0 || results[0] < req.body.scores) {
+        console.log(results);
+        console.log(req.body);
+        if (results.length <= 0 || results[0].scores < req.body.scores) {
             const rec = new Record();
             rec.userId = req.user._id;
             rec.username = req.user.username;

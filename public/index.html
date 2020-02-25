@@ -10,15 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<header align="end">
-    <span id="lives">5</span>
-    <span id="scores">0</span>
-    <span id="bullets">20</span>
-    <button id="restartBut">Restart</button>
-    <button id="startBut">Start/Pause</button>
-    <button id="leads" onclick="showLeaderBoard()">Leader board</button>
-    <button id="logBut" onclick="showLoginForm()">login/register</button>
-</header>
 <div id="authForm">
     <div id="switcher">
         <div id="login"  class="current-switch">Log in</div>
@@ -57,6 +48,7 @@
     <br/>
     <br/>
     <details>
+        <summary>Change password</summary>
         <label>New password</label>
         <input required="required" name="password" id="newPass" type="password"/>
         <br/>
@@ -78,9 +70,22 @@
         <div>Date</div>
     </div>
 </div>
+<header>
+
+</header>
 <div align="center">
     <canvas id="canvas" ></canvas>
 </div>
+
+<section >
+    <div>Lives: <span id="lives">5</span></div>
+    <div>Scores: <span id="scores">0</span></div>
+    <div>Bullets: <span id="bullets">20</span></div>
+    <button id="restartBut">Restart</button>
+    <button id="startBut">Start/Pause</button>
+    <button id="leads" onclick="showLeaderBoard()">Leader board</button>
+    <button id="logBut" onclick="showLoginForm()">login/register</button>
+</section>
 <footer>
     WebGame
 </footer>

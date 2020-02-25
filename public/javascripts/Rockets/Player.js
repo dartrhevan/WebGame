@@ -10,7 +10,7 @@ export default class Player extends Rocket {
         super(game);
         this.width = 22.5;
         this.height = 67.5;
-        this.x = 500;
+        //this.x = 500;
     }
 
     turningRight = false;

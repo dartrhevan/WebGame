@@ -3,7 +3,7 @@ body {
   display: grid;
   grid-template-rows: 50px 1fr 50px;
   margin: 0;
-  background-color: #000044;
+  background-color: #000000;
 }
 
 a {
@@ -59,15 +59,28 @@ button {
   margin: 10px 10px 10px 0;
 }
 
-#loginForm {
-
+#list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 50px;
 }
 
-body table#leaderBoard {
+#list>div:nth-child(3n + 2) {
+  background: #1C1CFF;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+#list>div {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+
+body div#leaderBoard {
   height: 500px;
   width: 500px;
   left: calc(50% - 250px);
-  background: #1C1CFF;
 }
 
 body table#leaderBoard td {

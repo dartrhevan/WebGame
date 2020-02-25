@@ -4,5 +4,6 @@ export function resize(g) {
     canvas.height = window.innerHeight - 104;
     g.width = canvas.width;
     g.height = canvas.height;
+    g.generateBackground();
     //canvas.parentNode.offsetHeight = canvas.height;
 }

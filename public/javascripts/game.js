@@ -55,6 +55,7 @@ export default class Game {
                     break;
             }
         };
+        this.background = [];
         this.startNewGame();
         this.generateBackground();
         window.onkeypress = e => e.key.toLowerCase() === 'k' ||  e.key.toLowerCase() === 'л' ? this.rocket.shoot() : null;
@@ -85,12 +86,12 @@ export default class Game {
         if(this.int) {
             this.increaseInt = clearInterval(this.increaseInt);
             this.int = clearInterval(this.int);
-            window.onresize = resize.bind(null, this);
+            //window.onresize = resize.bind(null, this);
         }
         else {
             this.int = setInterval(this.act.bind(this) , this.period);
             this.increaseInt = setInterval(this.increase.bind(this), 30000);
-            window.onresize = null;//resize(canvas);
+            //window.onresize = null;//resize(canvas);
         }
     }
 
@@ -144,6 +145,8 @@ export default class Game {
                         alert("Your record has been successfully saved");
                     else if(resp.res === "Too little")
                         alert("Your result isn't brilliant");
+                    else if(resp.error)
+                        alert("Can't save your achievement: " + resp.error);
                     else {
                         alert('Error!');
                         console.log(resp);
@@ -161,6 +164,7 @@ export default class Game {
             a.act();
             a.draw();
         });
+        this.background.forEach(a => a.draw());
         this.rocket.draw();
     }
 
@@ -170,9 +174,10 @@ export default class Game {
     }
 
     generateBackground() {
+        this.background = [];
         const count = rand(30) + 70;
         for(let i = 0; i < count; i++)
-            this.staticDrawables.push(new Star(rand(this.width), rand(this.height), this));
+            this.background.push(new Star(rand(this.width), rand(this.height), this));
     }
 }
 

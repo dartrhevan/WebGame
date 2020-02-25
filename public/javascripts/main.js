@@ -7,6 +7,7 @@ $(function () {
     const ctx = canvas.getContext('2d');
     const g = new Game(ctx, canvas.width, canvas.height);
     resize(g);
+    window.onresize = resize.bind(null, g);
     $('#restartBut').click(g.startNewGame.bind(g));
     $('#startBut').click(g.pause.bind(g));
     fetch('/username')

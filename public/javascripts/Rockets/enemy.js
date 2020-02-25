@@ -17,18 +17,19 @@ export default class Enemy extends Rocket {
         if(!(rand() % 15))
             super.shoot();
         if(this.y > this.game.height)
-            this.disappear();
+            this.disappear(false);
     }
 
     shouldMoveX(xShift) {
         return false;//this.x + xShift> 0 && this.x + xShift  < this.game.width;
     }
 
-    disappear() {
+    disappear(isFrag = true) {
         this.game.drawables.splice(this.game.drawables.indexOf(this), 1);
-        this.game.rocket.scores++;
+        if(isFrag)
+            this.game.rocket.scores++;
         const radius = 2.5;
-        const size = rand(8) +7;
+        const size = rand(8) + 7;
         for(let i = 0; i < size; i++)
             this.game.staticDrawables.push(new Piece(this.x + this.width / 2, this.y - this.height / 2, radius, this.game, -15, rand(Math.PI * 2)));
 

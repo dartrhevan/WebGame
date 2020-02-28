@@ -1,0 +1,29 @@
+@media (max-width: 1020px) {
+    body {
+        grid-template-rows: 1fr 40px;
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        display: none;
+    }
+
+    section {
+        display: none;
+        position: fixed;
+        width: 40%;
+        height: 100vh;
+        left: 100%;
+    }
+
+    body div#leaderBoard {
+        width: 90%;
+        left: 5%;
+    }
+
+    .bottom-controls {
+        display: block;
+    }
+
+
+}

@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="stylesheets/style.css"/>
+    <link rel="stylesheet" href="stylesheets/mobile_style.css"/>
     <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
     <script src="./javascripts/main.js" type="module"></script>
     <script src="./javascripts/handlers.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
 </head>
 <body>
 <div id="authForm">
@@ -77,7 +78,7 @@
     <canvas id="canvas" ></canvas>
 </div>
 
-<section >
+<section>
     <div>Lives: <span id="lives">5</span></div>
     <div>Scores: <span id="scores">0</span></div>
     <div>Bullets: <span id="bullets">20</span></div>
@@ -87,7 +88,12 @@
     <button id="logBut" onclick="showLoginForm()">login/register</button>
 </section>
 <footer>
-    WebGame
+    <div class="bottom-controls">
+        <button>up</button>
+        <button>down</button>
+        <button>shoot</button>
+        <button onclick="toggleMenu()">menu</button>
+    </div>
 </footer>
 </body>
 </html>

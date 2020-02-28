@@ -13,7 +13,7 @@ export default class Game {
         this.ctx = ctx;
         this.width = w;
         this.height = h;
-        this.period = 50;
+        this.period = 51;
         this.staticDrawables = [];
         window.onkeydown = ev => {
             switch (ev.key.toLowerCase()) {
@@ -58,7 +58,22 @@ export default class Game {
         this.background = [];
         this.startNewGame();
         this.generateBackground();
-        window.onkeypress = e => e.key.toLowerCase() === 'k' ||  e.key.toLowerCase() === 'л' ? this.rocket.shoot() : null;
+        window.onkeypress = e => {
+             switch(e.key.toLowerCase()) {
+                 case 'k':
+                 case 'л':
+                     this.rocket.shoot();// : null;
+                     break;
+                 case 'p':
+                 case 'з':
+                     this.pause();
+                     break;
+                 case 'r':
+                 case 'к':
+                     this.startNewGame();
+                     break;
+             }
+        };
 
     }
     increase()  {

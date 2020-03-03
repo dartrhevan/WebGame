@@ -6,11 +6,11 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 //const flash = require('connect-flash'),
 bodyParser = require('body-parser');
-const indexRouter = require('./routes/index');
+const indexRouter = require('./index');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { User } = require('./db');
-const {signup, login} = require('./passport');
+const { User } = require('./workers/db');
+const {signup, login} = require('./workers/passport');
 const app = express();
 //const mongoose = require('mongoose');
 

@@ -74,13 +74,29 @@ export default class Game {
                      break;
              }
         };
-
     }
     increase()  {
         this.speed += 15 / this.speed;
         if(!rand(5) && this.frequency > 10)
             this.frequency--;
     }
+
+    shoot() {
+        this.rocket.shoot();
+    }
+
+    get turningRight() { return this.rocket.turningRight; }
+    set turningRight(v) { this.rocket.turningRight = v; }
+
+
+    get turningLeft() { return this.rocket.turningLeft; }
+    set turningLeft(v) { this.rocket.turningLeft = v; }
+
+    get movingDown() { return this.rocket.goBack; }
+    set movingDown(v) { this.rocket.goBack = v; }
+
+    get movingUp() { return this.rocket.moving; }
+    set movingUp(v) { this.rocket.moving = v; }
 
     get isPaused() {
         return !this.int;

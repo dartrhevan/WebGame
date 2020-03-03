@@ -14,10 +14,6 @@ a {
   background-color: #000044;
 }
 
-.bottom-controls {
-
-}
-
 section div {
   font-size: 16px;
   color: #1C1CFF;
@@ -81,10 +77,16 @@ button {
 .bottom-controls {
   display: none;
 }
+/*
+#upBut {
+  background: green;
+}*/
 
 .bottom-controls button {
-  height: inherit;
+  min-width: 30px;
+  height: 40px;
   width: fit-content;
+  margin: 0 5px;
   background-color: rgba(150,150,150, 0.5);
   border-radius: 5px;
   border: 1px solid rgb(150,150,150);

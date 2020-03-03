@@ -1,3 +1,22 @@
+
+function toggleMenu() {
+    const form = 'section';
+    if($(form).css("display") === 'none') {
+        //const t = $(form).parent().height() / 2 - $(form).height() / 2;
+        $(form).animate({
+            left: "60%",
+            opacity: "1"
+        } , 250);
+        $(form).css("display" , "block");
+    }
+    else
+        $(form).animate({
+            left: "100%",
+            opacity: "0"
+        } , 250, () =>  $(form).css("display" , "none"));
+}
+
+
 function showLoginForm() {
     toggleForm("#authForm");
 }
@@ -142,19 +161,3 @@ function showLeaderBoard()
         toggleForm("#leaderBoard");
 }
 
-function toggleMenu() {
-    const form = 'section';
-    if($(form).css("display") === 'none') {
-        //const t = $(form).parent().height() / 2 - $(form).height() / 2;
-        $(form).animate({
-            left: "60%",
-            opacity: "1"
-        } , 250);
-        $(form).css("display" , "block");
-    }
-    else
-        $(form).animate({
-            left: "100%",
-            opacity: "0"
-        } , 250, () =>  $(form).css("display" , "none"));
-}

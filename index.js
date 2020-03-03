@@ -1,6 +1,6 @@
 
 
-const {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser, getUsername, registrationResult} = require("../workers");
+const {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser, getUsername, registrationResult} = require("./workers/workers");
 
 const express = require('express');
 const passport = require("passport");

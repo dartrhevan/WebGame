@@ -4,6 +4,7 @@ body {
   grid-template-rows: 20px 1fr 20px;
   grid-template-columns: 4fr 1fr;
   margin: 0;
+  background-color: darkslateblue;
 }
 
 a {
@@ -82,10 +83,13 @@ button {
   background: green;
 }*/
 
-.bottom-controls button {
+svg line {
+  stroke-width: 2px;
+}
+
+.bottom-controls svg {
   min-width: 30px;
-  height: 40px;
-  width: fit-content;
+  height: 35px;
   margin: 0 5px;
   background-color: rgba(150,150,150, 0.5);
   border-radius: 5px;

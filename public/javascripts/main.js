@@ -3,7 +3,6 @@ import {resize} from "./resize.js";
 //import $ from 'jquery';
 
 $(function () {
-    alert("Fuck");
     const ctx = canvas.getContext('2d');
     const g = new Game(ctx, canvas.width, canvas.height);
     resize(g);
@@ -37,20 +36,19 @@ $(function () {
     $('#upBut').mouseup(e => g.movingUp = false);
 
     $('#upBut').bind("touchstart", e => g.movingUp = true);//.get(0).ontouchstart = e => alert("Ye!");//g.movingUp = true;
-    $('#upBut').get(0).ontouchend = e => g.movingUp = false;
+    $('#upBut').bind("touchend", e => g.movingUp = false);
     /*$('#upBut').toutouchstart( e => g.movingUp = true);
     $('#upBut').get(0).ontouchend = e => g.movingUp = false;
 */
 
-    $('#downBut').mousedown(e => g.movingDown = true);
-    $('#downBut').mouseup(e =>g.movingDown = false);
+    $('#downBut').bind("touchstart", e => g.movingDown = true);//mousedown(e => g.movingDown = true);
+    $('#downBut').bind("touchend", e => g.movingDown = false);
+    $("#shootBut").click(e => g.shoot());
+    canvas.onclick = e => toggleMenu(true);
     /*canvas.ontouchstart = e => alert("Ye!");
     document.body.addEventListener('touchstart', function(e){
         e.preventDefault();
         alert(e.changedTouches[0].pageX) // показ коррдинат места прикосновения по X-у.
     }, false);*/
-    alert("Fuck !")
 });
-
-alert("Fuck !")
 

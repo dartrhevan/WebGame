@@ -1,7 +1,7 @@
 
-function toggleMenu() {
+function toggleMenu(hide = false) {
     const form = 'section';
-    if($(form).css("display") === 'none') {
+    if(!hide && $(form).css("display") === 'none') {
         //const t = $(form).parent().height() / 2 - $(form).height() / 2;
         $(form).animate({
             left: "60%",
@@ -160,4 +160,3 @@ function showLeaderBoard()
     else
         toggleForm("#leaderBoard");
 }
-

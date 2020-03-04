@@ -89,10 +89,28 @@
 </section>
 <footer>
     <div align="center" class="bottom-controls">
-        <button id="upBut"></button>
-        <button id="downBut">down</button>
-        <button id="shootBut">shoot</button>
-        <button onclick="toggleMenu()">menu</button>
+        <svg width="40" height="40" id="upBut">
+            <line x1="5" x2="20" y1="30" y2="5" stroke="darkgrey"/>
+            <line x2="35" x1="20" y2="30" y1="5" stroke="darkgrey"/>
+
+            <rect height="40" width="40" fill="none"  stroke="darkgrey"/>
+        </svg>
+        <svg width="40" height="40" id="downBut">
+            <line x1="5" x2="20" y1="5" y2="30" stroke="darkgrey"/>
+            <line x2="35" x1="20" y2="5" y1="30" stroke="darkgrey"/>
+            <rect height="40" width="40" fill="none"  stroke="darkgrey"/>
+        </svg>
+        <svg width="40" height="40" id="shootBut">
+            <rect height="40" width="40" fill="none"  stroke="darkgrey"/>
+            <circle r="15" cx="20" cy="17.5" stroke="darkgrey" fill="none"/>
+            <circle r="7" cx="20" cy="17.5" fill="darkgrey"/>
+        </svg>
+        <svg width="40" height="40" onclick="toggleMenu()">
+            <rect height="40" width="40" fill="none"  stroke="darkgrey"/>
+            <line x1="5" x2="35" y1="10" y2="10" stroke="darkgrey"/>
+            <line x1="5" x2="35" y1="20" y2="20" stroke="darkgrey"/>
+            <line x1="5" x2="35" y1="30" y2="30" stroke="darkgrey"/>
+        </svg>
     </div>
 </footer>
 </body>

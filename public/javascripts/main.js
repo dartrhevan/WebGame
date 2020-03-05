@@ -28,4 +28,5 @@ $(function () {
     $('#leftBut').bind("touchend", e => {e.preventDefault(); g.turningLeft = false});
     $("#shootBut").click(e => g.shoot());
     canvas.onclick = e => toggleMenu(true);
+    alert("Control for desktop: use W, A, S, D to move, P to pause and K to shoot");
 });

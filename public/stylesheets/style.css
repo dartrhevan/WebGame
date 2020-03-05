@@ -54,6 +54,10 @@ section {
   background: black;
 }
 
+footer {
+  z-index: 10;
+}
+
 footer, header {
   grid-column: 3 span;
   background: black;
@@ -73,6 +77,34 @@ button {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 50px;
+}
+
+#upBut {
+  position: fixed;
+  bottom: 110px;
+  transform: scale(1.2);
+  right: 50px;
+}
+
+#downBut {
+  position: fixed;
+  bottom: 45px;
+  right: 50px;
+  transform: scale(1.2);
+}
+
+#leftBut {
+  position: fixed;
+  bottom: 40px;
+  left: 10px;
+  transform: scale(1.2);
+}
+
+#rightBut {
+  position: fixed;
+  bottom: 40px;
+  left: 70px;
+  transform: scale(1.2);
 }
 
 .bottom-controls {

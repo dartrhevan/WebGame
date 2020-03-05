@@ -17,15 +17,15 @@ $(function () {
         }).catch(e => console.log(e));
 
 
-    $('#upBut').bind("touchstart", e => g.movingUp = true);
-    $('#upBut').bind("touchend", e => g.movingUp = false);
-    $('#downBut').bind("touchstart", e => g.movingDown = true);
-    $('#downBut').bind("touchend", e => g.movingDown = false);
+    $('#upBut').bind("touchstart", e => {e.preventDefault(); g.movingUp = true});
+    $('#upBut').bind("touchend", e => {e.preventDefault(); g.movingUp = false});
+    $('#downBut').bind("touchstart", e => {e.preventDefault(); g.movingDown = true});
+    $('#downBut').bind("touchend", e => {e.preventDefault(); g.movingDown = false});
 
-    $('#rightBut').bind("touchstart", e => g.turningRight = true);
-    $('#rightBut').bind("touchend", e => g.turningRight = false);
-    $('#leftBut').bind("touchstart", e => g.turningLeft = true);
-    $('#leftBut').bind("touchend", e => g.turningLeft = false);
+    $('#rightBut').bind("touchstart", e => {e.preventDefault(); g.turningRight = true});
+    $('#rightBut').bind("touchend", e => {e.preventDefault(); g.turningRight = false});
+    $('#leftBut').bind("touchstart", e => {e.preventDefault(); g.turningLeft = true});
+    $('#leftBut').bind("touchend", e => {e.preventDefault(); g.turningLeft = false});
     $("#shootBut").click(e => g.shoot());
     canvas.onclick = e => toggleMenu(true);
 });

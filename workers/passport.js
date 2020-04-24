@@ -18,9 +18,10 @@ const signup = new LocalStrategy((username, password, done) => {
             u.password = h;
             if(!user)
                 u.save(e => {console.log(e)});
-            else return done(null, false, err);
+            else return done(null, false, err || "User already exists");
+            console.log('OK');
             //User.insert({username: username, password: password});
-            return done(null, user);
+            return done(null, u);
         });
     }
 );
@@ -30,7 +31,7 @@ const login = new LocalStrategy((username, password, done) => {
         User.findOne({ username: username }, (err, user) => {
             console.log(user);
             if(!user)
-                return done(null, false, err);
+                return done(null, false, err || "Not Found");
             else if(!isValidPassword(password, user.password))
                 return done(null, false, 'Wrong password!');
             return done(null, user);

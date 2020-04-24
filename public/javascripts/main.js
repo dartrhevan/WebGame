@@ -11,8 +11,8 @@ $(function () {
     fetch('/username')
         .then(r => r.json())
         .then(resp => {
-            if(resp.err)
-                console.log(resp.err);
+            if(resp.error)
+                console.log(resp.error);
             else showUserName(resp)
         }).catch(e => console.log(e));
 

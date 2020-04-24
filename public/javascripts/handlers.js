@@ -59,8 +59,8 @@ function sendLogin(e) {
             password: $("#loginForm input[name='password']").val()
         })
     }).then(resp => resp.json()).then(resp => {
-        if(resp.err)
-            alert(resp.err);
+        if(resp.error)
+            alert(resp.error);
         else showUserName(resp);
     }).catch(e => alert(e));
 }
@@ -91,8 +91,11 @@ function sendRegistration(e) {
                 password: $("#regForm input[name='password']").val()
             })
     }).then(resp => resp.json()).then(resp => {
-        if(!resp.err && resp.res === 'OK')
+        console.log(resp);
+        if(!resp.error && resp.res === 'OK')
             alert("Successful registration");
+        else
+            alert(resp.error);
     }).catch(e => alert(e));
 }
 
@@ -124,8 +127,11 @@ function sendEdit(event) {
                 oldPassword: $("#editForm input[name='oldPassword']").val()
             })
     }).then(resp => resp.json()).then(resp => {
-        if(!resp.err && resp.res === 'OK')
-            alert("Successful registration");
+        console.log(resp);
+        if(!resp.error && resp.res === 'OK')
+            alert("Successful edit");
+        else
+            alert(resp.error);
     }).catch(e => alert(e));
 }
 

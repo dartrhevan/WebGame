@@ -4,10 +4,11 @@
  * Module dependencies.
  */
 
+const express = require('express');
 var app = require('../app');
 var debug = require('debug')('webgame:server');
 var http = require('http');
-
+//const ws = require('ws');
 /**
  * Get port from environment and store in Express.
  */
@@ -18,13 +19,26 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
 var server = http.createServer(app);
+/*var server = http.Server(app);
+const expressWs = require('express-ws')(app, server);
+var router = express.Router();
 
+router.ws('/echo', function(ws, req) {
+  console.log("con");
+  ws.send("u: " + req.user);
+  ws.on('message', function(msg) {
+    ws.send(msg);
+  });
+});
+app.use("/ws", router);*/
 /**
  * Listen on provided port, on all network interfaces.
  */
+/*const wss = ws.Server({ server: server, path: "/ws" });
 
+wss.on('')
+*/
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

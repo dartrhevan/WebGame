@@ -7,22 +7,24 @@ const passport = require("passport");
 const router = express.Router();
 
 router.post('/login', checkNotAuthentication, passport.authenticate('login', {
-  successRedirect: '/username',
-  failureRedirect: '/username?fail'
+  successRedirect: '/auth_result',
+  failureRedirect: '/auth_result?fail',
+  failureFlash : true
 }));
 
 router.post('/signup', (req,res,n) => {
   console.log(req.body);
   n();
 },  checkNotAuthentication, passport.authenticate('signup', {
-  successRedirect: '/reg-res',
-  failureRedirect: '/reg-res?fail',
-  //failureFlash : true
+  successRedirect: '/auth_result',
+  failureRedirect: '/auth_result?fail',
+  failureFlash : true
 }));
 
-router.get('/username', getUsername);
+router.get('/auth_result', getUsername);
 
-router.get('/reg-res', registrationResult);
+router.get('/username', getUsername);
+//router.get('/reg-res', registrationResult);
 
 router.get('/get_records', getRecords);
 

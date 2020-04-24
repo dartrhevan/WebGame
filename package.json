@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "bcryptjs": "latest",
     "body-parser": "latest",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
@@ -14,12 +15,11 @@
     "express": "~4.16.1",
     "express-session": "^1.17.0",
     "http-errors": "~1.6.3",
+    "jest": "^24.9.0",
     "mongoose": "^5.8.11",
     "morgan": "~1.9.1",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
-    "bcryptjs": "latest",
-    "jest": "^24.9.0"
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",

@@ -74,20 +74,28 @@ function checkNotAuthentication(req, res, next) {
         next();
 }
 
-function getUsername(req, res) {/*
+function getUsername(req, res) {
+    /*
    console.log(req.query);*/
     console.log(req.isAuthenticated());
     if(req.user)
-        res.json({ username: req.user.username });
-    else
-        res.json({err: "A problem with authentication has occurred"});
-}
+        res.json({ username: req.user.username, res: "OK" });
+    else {
+        const flash = req.flash();
+        console.log(flash);
+        res.json({error: flash.error || "A problem with authentication has occurred"});
 
+        //res.json({err: "A problem with authentication has occurred"});
+    }
+}
+/*
 function registrationResult(req, res)
 {
     if(req.query.fail)
-        res.json({err: "A problem with registration has occurred"});
+        res.json({err: req.flash()});
+        //res.json({err: "A problem with registration has occurred"});
     else res.json({res: "OK"});
-}
 
-module.exports = {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser, getUsername, registrationResult};
+}*/
+
+module.exports = {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser, getUsername};

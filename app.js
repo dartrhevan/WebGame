@@ -4,14 +4,16 @@ const session = require("express-session");
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-//const flash = require('connect-flash'),
+const flash = require('connect-flash'),
 bodyParser = require('body-parser');
-const indexRouter = require('./index');
+const indexRouter = require('./routes');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+//const LocalStrategy = require('passport-local').Strategy;
 const { User } = require('./workers/db');
 const {signup, login} = require('./workers/passport');
 const app = express();
+
+
 //const mongoose = require('mongoose');
 
 //mongoose.connect('mongodb+srv://laptop:android@cluster0-dprw7.mongodb.net/test?retryWrites=true&w=majority');
@@ -38,8 +40,8 @@ app.use(cookieParser('anything'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use(session({ secret: 'anything' }));
-//app.use(flash());
+app.use(session({ secret: 'anything', cookie: { maxAge: 60000 } }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 

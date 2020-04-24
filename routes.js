@@ -1,6 +1,6 @@
 
 
-const {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser, getUsername, registrationResult} = require("./workers/workers");
+const {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser, getUsername} = require("./workers/workers");
 
 const express = require('express');
 const passport = require("passport");
@@ -24,7 +24,6 @@ router.post('/signup', (req,res,n) => {
 router.get('/auth_result', getUsername);
 
 router.get('/username', getUsername);
-//router.get('/reg-res', registrationResult);
 
 router.get('/get_records', getRecords);
 

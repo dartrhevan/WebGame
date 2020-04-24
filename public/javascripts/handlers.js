@@ -53,7 +53,7 @@ function sendLogin(e) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: //encodeURI(`username=${$("#loginForm input[name='username']").val()}&&password=${$("#loginForm input[name='password']").val()}`)/*
+        body:
          JSON.stringify({
             username: $("#loginForm input[name='username']").val(),
             password: $("#loginForm input[name='password']").val()
@@ -85,7 +85,7 @@ function sendRegistration(e) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: //encodeURI(`username=${$("#loginForm input[name='username']").val()}&&password=${$("#loginForm input[name='password']").val()}`)/*
+        body:
             JSON.stringify({
                 username: $("#regForm input[name='username']").val(),
                 password: $("#regForm input[name='password']").val()

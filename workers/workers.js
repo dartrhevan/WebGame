@@ -21,14 +21,13 @@ function addRecord(req , res) {
             res.send({res: "OK"});
         } else
             res.send({res: "Too little"});
-    }).sort({scores: -1}).limit(10);//.toArray(
+    }).sort({scores: -1}).limit(10);
 }
 
 function getRecords(req, res) {
     Record.find(function(err, results) {
         res.send(results);
-    }).sort({scores: -1}).limit(10);//.toArray();
-    //console.log(a)
+    }).sort({scores: -1}).limit(10);
 }
 /**
  * @params:
@@ -75,8 +74,6 @@ function checkNotAuthentication(req, res, next) {
 }
 
 function getUsername(req, res) {
-    /*
-   console.log(req.query);*/
     console.log(req.isAuthenticated());
     if(req.user)
         res.json({ username: req.user.username, res: "OK" });
@@ -84,18 +81,7 @@ function getUsername(req, res) {
         const flash = req.flash();
         console.log(flash);
         res.json({error: flash.error || "A problem with authentication has occurred"});
-
-        //res.json({err: "A problem with authentication has occurred"});
     }
 }
-/*
-function registrationResult(req, res)
-{
-    if(req.query.fail)
-        res.json({err: req.flash()});
-        //res.json({err: "A problem with registration has occurred"});
-    else res.json({res: "OK"});
-
-}*/
 
 module.exports = {addRecord , getRecords, checkAuthentication, checkNotAuthentication, editUser, getUsername};
